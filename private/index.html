@@ -1,0 +1,3337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Farmers</title>
+<style>
+:root {
+    --ivory: #F7F5F2;
+    --beetroot: #8A2348;
+    --burgundy: #874052;
+    --magenta: #C04482;
+    --charcoal: #414141;
+    --black: #171717;
+    --white: #FFFFFF;
+    --line: #E7E1DC;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    background: var(--ivory);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--ivory);
+    color: var(--charcoal);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.55;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* CONSISTENT PAGE BACKGROUND */
+
+.community-header,
+.community-container,
+main,
+footer {
+    background-color: var(--ivory);
+}
+
+/* PAGE HEADER */
+.community-header {
+    position: relative;
+    min-height: 104px;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.header-container {
+    width: 100%;
+    max-width: 1120px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.brand { text-align: center; }
+.brand h1 {
+    margin: 0;
+    color: var(--black);
+    font-size: 25px;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+.brand p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: #77706D;
+}
+.profile-header {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* =====================================================
+   FARMER PROFILE INFORMATION
+===================================================== */
+
+/* =====================================================
+   FARMER PROFILE AVATAR
+===================================================== */
+
+.profile-header {
+    display: flex;
+    align-items: flex-start;
+}
+
+.profile-photo-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-photo {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    display: block;
+
+    cursor: pointer;
+
+    border: 2px solid var(--burgundy);
+}
+
+/* =====================================================
+   PROFILE DETAILS
+===================================================== */
+
+.profile-details {
+    display: none;
+
+    position: absolute;
+
+    top: 57px;
+    left: 0;
+
+    z-index: 100;
+
+    width: 230px;
+
+    padding: 8px 0;
+
+    background: var(--ivory);
+
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.profile-details.is-open {
+    display: block;
+}
+
+/* FARMER ID */
+
+.profile-id {
+    font-size: 11px;
+
+    color: var(--burgundy);
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+/* FULL NAME */
+
+.profile-name {
+    font-size: 13px;
+
+    color: var(--beetroot);
+
+    font-weight: 700;
+
+    margin-bottom: 12px;
+}
+
+/* PHOTO BUTTONS */
+
+.profile-photo-actions {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 9px;
+}
+
+.upload-label,
+.remove-photo {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 0;
+
+    border: none;
+
+    background: transparent;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.upload-label {
+    color: var(--beetroot);
+}
+
+.remove-photo {
+    color: #9A4545;
+}
+
+.upload-label:hover,
+.remove-photo:hover {
+    opacity: .7;
+}
+
+/* SLIM NAVIGATION */
+.community-nav {
+    min-height: auto;
+    background: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 9px 12px;
+}
+
+.community-nav a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    padding: 7px 16px;
+    margin: 0;
+    border-radius: 4px;
+    
+    color: var(--beetroot);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+    transition: background .2s ease;
+}
+
+.community-nav a:hover,
+.community-nav a.active {
+    background: transparent;
+    color: var(--magenta);
+}
+
+
+/* CLEAN PAGE CONTENT */
+.community-container {
+    width: min(100% - 32px, 760px);
+    margin: 27px auto 55px;
+}
+.composer-card {
+    width: min(100%, 620px);
+    margin: 0 auto 30px;
+    padding: 0 0 20px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+}
+.composer-card h2 {
+    margin: 0 0 3px;
+    text-align: center;
+    color: var(--black);
+    font-size: 16px;
+}
+.composer-card > p {
+    margin: 0 0 14px;
+    text-align: center;
+    color: #817875;
+    font-size: 11px;
+}
+.post-input {
+    display: block;
+    width: 100%;
+    min-height: 88px;
+    padding: 12px 14px;
+    resize: vertical;
+    border: 1px solid #DED6D0;
+    border-radius: 6px;
+    outline: none;
+    background: rgba(255,255,255,.7);
+    color: var(--charcoal);
+    font-size: 13px;
+}
+.post-input:focus,
+.comment-input:focus,
+.profile-input:focus { border-color: var(--burgundy); }
+.post-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+.category-select {
+    max-width: 65%;
+    padding: 8px 9px;
+    border: 1px solid #DED6D0;
+    border-radius: 5px;
+    background: transparent;
+    color: var(--charcoal);
+    font-size: 11px;
+}
+.primary-button {
+    padding: 8px 16px;
+    border: 0;
+    border-radius: 5px;
+    background: var(--beetroot);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+}
+.primary-button:hover, .profile-save:hover { background: var(--magenta); }
+
+/* FEED — NO CARDS OR COLOURED PANELS */
+.feed-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 18px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--line);
+}
+.feed-heading h2 {
+    margin: 0;
+    color: var(--black);
+    font-size: 15px;
+}
+.feed-filter {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--beetroot);
+    font-size: 11px;
+    font-weight: 700;
+}
+.post-card {
+    margin: 0 auto;
+    padding: 17px 4px 19px;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    box-shadow: none;
+}
+.post-author {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+.author-photo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #E9E4DF;
+}
+.author-name {
+    color: var(--black);
+    font-size: 12px;
+    font-weight: 700;
+}
+.post-date {
+    color: #8B827E;
+    font-size: 10px;
+}
+.post-category {
+    display: inline-block;
+    margin: 10px 0 2px;
+    color: var(--beetroot);
+    font-size: 10px;
+    font-weight: 700;
+}
+.post-content {
+    margin: 5px 0 12px;
+    color: #393433;
+    font-size: 13px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+.post-actions {
+    display: flex;
+    gap: 19px;
+    padding-top: 8px;
+    border-top: 1px solid #EEE9E5;
+}
+.action-button {
+    padding: 2px 0;
+    border: 0;
+    background: transparent;
+    color: #756B68;
+    font-size: 10px;
+    font-weight: 700;
+}
+.action-button:hover, .action-button.liked { color: var(--beetroot); }
+
+/* COMMENTS — TINY, CENTERED, VISIBLE ONLY WHEN PRESENT */
+.action-button:hover,
+.action-button.liked {
+    color: var(--beetroot);
+}
+
+/* Comments area */
+.comments-area {
+    width: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Individual comment */
+.comment-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    width: 100%;
+    margin: 12px 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+/* Commenter's profile photo */
+.comment-avatar {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Comment content */
+.comment-body {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Commenter's name */
+.comment-author {
+    display: block;
+    color: #555555;
+    font-size: 12px;
+    font-weight: 700;
+    margin: 0 0 3px;
+}
+
+/* Normal comment paragraph */
+.comment-text {
+    color: #555555;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    overflow-wrap: anywhere;
+}
+
+/* Comment date */
+.comment-date {
+    display: block;
+    margin-top: 4px;
+    color: #888888;
+    font-size: 10px;
+}
+
+/* Comment form */
+.comment-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin: 12px 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.comment-form[hidden] {
+    display: none !important;
+}
+
+.comment-input {
+    flex: 1;
+    min-width: 0;
+}
+.empty-feed {
+    padding: 30px 10px;
+    text-align: center;
+    color: #817875;
+}
+.empty-feed h3 { margin: 0 0 5px; color: var(--black); font-size: 14px; }
+.empty-feed p { margin: 0; font-size: 11px; }
+.community-footer {
+    padding: 20px 15px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+}
+.footer-title { color: var(--black); font-size: 13px; font-weight: 700; }
+.footer-text, .footer-bottom { color: #817875; font-size: 10px; }
+.footer-text { margin: 4px 0 10px; }
+.social-links { display: flex; justify-content: center; gap: 15px; margin: 8px 0; }
+.social-links a { color: var(--beetroot); text-decoration: none; font-size: 15px; }
+
+@media (max-width: 600px) {
+    .community-header { min-height: 88px; padding: 14px 12px; }
+    .header-container { min-height: 58px; }
+    .profile-header { gap: 0; }
+    .profile-photo-wrap, .profile-photo { width: 41px; height: 41px; }
+    .profile-photo-wrap { flex-basis: 41px; }
+    .profile-heading-name, .profile-heading-id { display: none; }
+    .brand h1 { font-size: 19px; }
+    .brand p { max-width: 190px; font-size: 10px; }
+    .community-nav { justify-content: flex-start; overflow-x: auto; }
+    .community-nav a { flex: 0 0 auto; padding: 8px 13px; font-size: 10px; }
+    .community-container { width: calc(100% - 26px); margin-top: 20px; }
+    .composer-card { margin-bottom: 23px; }
+    .post-controls { align-items: center; }
+    .category-select { max-width: 62%; }
+}
+/* =========================================
+   BURGUNDY HAMBURGER MENU
+========================================= */
+
+.community-menu {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.menu-toggle {
+    width: 42px;
+    height: 42px;
+    padding: 9px;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 23px;
+    height: 2px;
+    background: var(--beetroot);
+    border-radius: 3px;
+    transition: all 0.25s ease;
+}
+
+.menu-toggle:hover {
+    background: transparent;
+}
+
+.menu-toggle:hover span {
+    background: var(--burgundy);
+    width: 26px;
+}
+
+/* =========================================
+   MENU OVERLAY
+========================================= */
+
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(25, 15, 19, 0.38);
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease,
+                visibility 0.3s ease;
+}
+
+.menu-overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =========================================
+   RIGHT SIDE DRAWER
+========================================= */
+
+.community-side-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 270px;
+    max-width: 82%;
+    height: 100vh;
+    height: 100dvh;
+    background: #F7F5F2;
+    z-index: 2001;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 22px 18px;
+
+    box-shadow: -8px 0 30px rgba(0, 0, 0, 0.12);
+
+    transform: translateX(105%);
+    visibility: hidden;
+
+    transition: transform 0.32s ease,
+                visibility 0.32s ease;
+}
+
+.community-side-menu.is-open {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+/* MENU HEADING */
+
+.menu-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    border-bottom: 1px solid rgba(112, 29, 54, 0.15);
+}
+
+.menu-heading strong {
+    color: #701D36;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.menu-close {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: transparent;
+    color: #701D36;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+/* MENU LINKS */
+
+.menu-links {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 22px;
+}
+
+.menu-links a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 11px;
+
+    color: #414141;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+
+    border-radius: 6px;
+    transition: background 0.2s ease,
+                color 0.2s ease,
+                padding 0.2s ease;
+}
+
+.menu-links a:hover {
+    background: rgba(112, 29, 54, 0.09);
+    color: #701D36;
+    padding-left: 16px;
+}
+
+.menu-icon {
+    width: 20px;
+    color: #701D36;
+    font-size: 19px;
+    text-align: center;
+}
+
+.menu-divider {
+    height: 1px;
+    background: rgba(112, 29, 54, 0.15);
+    margin: 12px 0;
+}
+
+/* LOGOUT */
+
+.menu-links .logout-link {
+    color: #9A263D;
+}
+
+.menu-links .logout-link:hover {
+    background: rgba(154, 38, 61, 0.09);
+    color: #9A263D;
+}
+
+/* MENU FOOTER */
+
+.menu-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid rgba(112, 29, 54, 0.15);
+
+    color: #898184;
+    font-size: 10px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+/* PREVENT BACKGROUND SCROLL */
+
+body.menu-open {
+    overflow: hidden;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .community-menu {
+        top: 15px;
+        right: 15px;
+    }
+
+    .menu-toggle {
+        width: 39px;
+        height: 39px;
+    }
+
+    .community-side-menu {
+        width: 255px;
+    }
+}
+.profile-photo-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.upload-label,
+.profile-save,
+.remove-photo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.upload-label {
+    color: var(--beetroot);
+}
+
+.profile-save {
+    color: var(--burgundy);
+}
+
+.profile-save:disabled {
+    opacity: .45;
+    cursor: not-allowed;
+}
+
+.remove-photo {
+    color: #9A4545;
+}
+.comments-area {
+    display: none;
+}
+
+.comments-area.active {
+    display: block;
+}
+.profile-photo-actions {
+    display: none;
+}
+
+.profile-photo-actions.active {
+    display: block;
+}
+/* =====================================================
+   CENTERED COMMUNITY POST CARDS
+===================================================== */
+
+.post-card {
+    width: 100%;
+    max-width: 580px;
+
+    margin: 0 auto 22px;
+
+    padding: 20px 20px 18px;
+
+    background: #FFFFFF;
+
+    border: 1px solid var(--line);
+
+    border-radius: 10px;
+
+    box-shadow: 0 3px 12px rgba(65, 35, 45, 0.045);
+}
+
+/* POST AUTHOR */
+
+.post-author {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* POST CONTENT */
+
+.post-content {
+    margin: 8px 0 14px;
+
+    color: #393433;
+
+    font-size: 13px;
+    line-height: 1.7;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* POST IMAGE */
+
+.post-media {
+    display: block;
+
+    width: 100%;
+    max-height: 420px;
+
+    object-fit: contain;
+
+    margin: 12px auto;
+
+    border-radius: 7px;
+}
+
+/* POST ACTIONS */
+
+.post-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    padding-top: 12px;
+
+    border-top: 1px solid var(--line);
+}
+
+/* COMMENTS */
+
+.comments-area {
+    margin-top: 12px;
+    padding-top: 5px;
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .post-card {
+        max-width: 100%;
+        padding: 16px 14px;
+        margin-bottom: 17px;
+        border-radius: 8px;
+    }
+
+}
+</style>
+</head>
+<body>
+
+
+
+
+    <header class="community-header">
+    <div class="header-container">
+
+        
+
+
+<!-- FARMER PROFILE -->
+<div class="profile-header">
+
+    <div class="profile-photo-wrap">
+
+        <!-- PROFILE AVATAR -->
+        <img
+            src="https://placehold.co/150x150/E5DCEB/414141?text=Farmer"
+            id="profileImage"
+            class="profile-photo"
+            alt="Farmer profile photo"
+            role="button"
+            tabindex="0"
+            aria-expanded="false"
+        >
+
+        <!-- UPLOAD BUTTON -->
+        <div class="profile-photo-actions" id="profilePhotoActions">
+
+            <button
+                type="button"
+                class="upload-label"
+                id="uploadProfilePhoto"
+            >
+                <i class="fas fa-camera"></i>
+                Upload Profile Photo
+            </button>
+
+            <input
+                type="file"
+                id="photoUpload"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                hidden
+            >
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+        <!-- NEW HAMBURGER MENU -->
+        <div class="community-menu">
+
+            <button
+                type="button"
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Open navigation menu"
+                aria-expanded="false"
+                aria-controls="communityMenu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+</header>
+
+
+<!-- MENU OVERLAY -->
+<div class="menu-overlay" id="menuOverlay"></div>
+
+
+<!-- RIGHT SIDE DRAWER -->
+<aside
+    class="community-side-menu"
+    id="communityMenu"
+    aria-hidden="true"
+>
+
+    <div class="menu-heading">
+        <strong>Farmer Navigation</strong>
+
+        <button
+            type="button"
+            class="menu-close"
+            id="menuClose"
+            aria-label="Close menu"
+        >
+            &times;
+        </button>
+    </div>
+
+    <nav class="menu-links">
+
+        <a href="farmer-portal.html">Farmers Portal</a>
+
+        <a href="agricultural-library.html">Agricultural Library</a>
+
+        <a href="digital-learning.html">Digital Learning</a>
+
+        <div class="menu-divider"></div>
+
+        <a href="/community-logout" class="logout-link" id="logoutLink">
+            Logout
+        </a>
+
+    </nav>
+
+    <div class="menu-footer">
+        Gadeh Agro-Digital Empowerment Hub
+    </div>
+
+</aside>
+
+
+    <!-- =====================================================
+         COMMUNITY NAVIGATION
+    ====================================================== -->
+
+    <nav class="community-nav" aria-label="Community navigation">
+
+        <a
+            href="#community-feed"
+            class="active"
+            onclick="showAllPosts(); setActiveNav(this)"
+        >
+            All Posts
+        </a>
+
+        <a
+            href="#community-feed"
+            onclick="showMyPosts(); setActiveNav(this)"
+        >
+            My Posts
+        </a>
+
+        <a
+            href="#postComposer"
+            onclick="document.getElementById('postContent').focus(); setActiveNav(this)"
+        >
+            Publish
+        </a>
+
+        <a href="#community-footer">
+            Community
+        </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         MAIN COMMUNITY CONTENT
+    ====================================================== -->
+
+    <main class="community-container">
+
+        <!-- POST COMPOSER -->
+
+        <section class="composer-card" id="postComposer">
+
+            <h2>GADE COMMUNITY FARMERS</h2>
+
+            <p>
+                Share agricultural information, experiences,
+                questions or advice.
+            </p>
+
+            <textarea
+                id="postContent"
+                class="post-input"
+                placeholder="What would you like to share with the farming community?"
+            ></textarea>
+
+            <!-- POST IMAGE UPLOAD -->
+
+            <div class="post-image-upload">
+
+                <label for="postFile" class="upload-label">
+                    <span>📷</span>
+                    Add a photo
+                </label>
+
+                <input
+                    type="file"
+                    id="postFile"
+                    accept="image/*"
+                    hidden
+                >
+
+                <div id="postImagePreview" class="post-image-preview"></div>
+
+            </div>
+
+            <!-- POST CATEGORY AND PUBLISH BUTTON -->
+
+            <div class="post-controls">
+
+                <select
+                    id="postCategory"
+                    class="category-select"
+                >
+
+                    <option value="General Agriculture">
+                        General Agriculture
+                    </option>
+
+                    <option value="Crop Production">
+                        Crop Production
+                    </option>
+
+                    <option value="Pests and Diseases">
+                        Pests and Diseases
+                    </option>
+
+                    <option value="Soil Health">
+                        Soil Health
+                    </option>
+
+                    <option value="Water and Irrigation">
+                        Water and Irrigation
+                    </option>
+
+                    <option value="Livestock">
+                        Livestock
+                    </option>
+
+                    <option value="Harvesting and Marketing">
+                        Harvesting and Marketing
+                    </option>
+
+                    <option value="Climate Change">
+                        Climate Change
+                    </option>
+
+                    <option value="Agricultural Technology">
+                        Agricultural Technology
+                    </option>
+
+                </select>
+
+                <button
+                    class="primary-button"
+                    type="button"
+                    onclick="createPost()"
+                >
+                    Publish Post
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COMMUNITY POSTS FEED
+        ================================================== -->
+
+        <section class="community-feed-section" aria-label="Farmer posts">
+
+            <div class="feed-heading" id="community-feed">
+
+                <h2 id="feedTitle">
+                    Community Discussions
+                </h2>
+
+                <button
+                    class="feed-filter"
+                    type="button"
+                    onclick="showAllPosts()"
+                >
+                    All Posts
+                </button>
+
+            </div>
+
+            <!-- POSTS ARE RENDERED HERE BY JAVASCRIPT -->
+
+            <div id="postsContainer">
+
+                <p class="feed-loading">
+                    Loading community discussions...
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+<footer class="community-footer" id="community-footer">
+    <div class="footer-title">Community Farmers</div>
+    <p class="footer-text">Growing together through knowledge and collaboration.</p>
+    <div class="social-links">
+        <a href="#" aria-label="Facebook">f</a>
+        <a href="#" aria-label="Instagram">◎</a>
+        <a href="#" aria-label="X">𝕏</a>
+        <a href="#" aria-label="YouTube">▶</a>
+    </div>
+    <div class="footer-bottom">© 2026 Community Farmers. All rights reserved.</div>
+</footer>
+
+<script>
+"use strict";
+
+/* =========================================================
+   COMMUNITY FARMERS — UNIFIED JAVASCRIPT
+   Cookie authentication + PostgreSQL API
+========================================================= */
+
+
+/* =========================================================
+   1. CONFIGURATION
+========================================================= */
+
+const API = {
+    farmerMe: "/api/farmer/me",
+    profile: "/api/farmer/profile",
+    profilePhoto: "/api/farmer/profile/photo",
+    posts: "/api/community/posts",
+    logout: "/api/farmer/logout"
+};
+
+const DEFAULT_AVATAR =
+    "https://placehold.co/150x150/E5DCEB/414141?text=Farmer";
+
+const MAX_IMAGE_SIZE = 3 * 1024 * 1024;
+
+const ALLOWED_IMAGE_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp",
+    "image/gif"
+];
+
+let farmer = null;
+let posts = [];
+
+let currentFilter = "all";
+let currentCategory = null;
+
+let selectedPostImage = null;
+let isPublishing = false;
+let isLoadingPosts = false;
+let initialized = false;
+
+
+/* =========================================================
+   2. API REQUEST HELPER
+========================================================= */
+
+async function apiRequest(url, options = {}) {
+
+    const headers = {
+        ...(options.headers || {})
+    };
+
+    if (
+        options.body &&
+        !(options.body instanceof FormData) &&
+        !headers["Content-Type"]
+    ) {
+        headers["Content-Type"] = "application/json";
+    }
+
+    const response = await fetch(url, {
+        ...options,
+        headers,
+        credentials: "include"
+    });
+
+    let data = {};
+
+    try {
+        data = await response.json();
+    } catch {
+        data = {};
+    }
+
+    if (response.status === 401) {
+
+        localStorage.removeItem("farmerData");
+
+        window.location.replace("/community-login");
+
+        throw new Error("Your session has expired.");
+    }
+
+    if (!response.ok) {
+
+        throw new Error(
+            data.message || "The request could not be completed."
+        );
+    }
+
+    return data;
+}
+
+
+/* =========================================================
+   3. SECURITY HELPERS
+========================================================= */
+
+function escapeHTML(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, char => {
+
+        return {
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        }[char];
+
+    });
+}
+
+
+function safeImageURL(value) {
+
+    if (!value) return DEFAULT_AVATAR;
+
+    const url = String(value);
+
+    if (
+        url.startsWith("/uploads/") ||
+        url.startsWith("/images/")
+    ) {
+        return url;
+    }
+
+    try {
+
+        const parsed = new URL(url, window.location.origin);
+
+        if (
+            parsed.protocol === "https:" ||
+            parsed.protocol === "http:"
+        ) {
+            return parsed.href;
+        }
+
+    } catch {
+        return DEFAULT_AVATAR;
+    }
+
+    return DEFAULT_AVATAR;
+}
+
+
+function formatDate(value) {
+
+    if (!value) return "";
+
+    const date = new Date(value);
+
+    if (Number.isNaN(date.getTime())) return "";
+
+    return date.toLocaleString("en-KE", {
+        dateStyle: "medium",
+        timeStyle: "short"
+    });
+}
+
+
+function getElement(id) {
+    return document.getElementById(id);
+}
+
+async function checkFarmerSession() {
+
+    try {
+
+        const response = await fetch("/api/farmer/me", {
+            credentials: "include"
+        });
+
+        if (!response.ok) {
+            window.location.replace("/community-login");
+            return;
+        }
+
+    } catch (error) {
+
+        window.location.replace("/community-login");
+
+    }
+
+}
+
+checkFarmerSession();
+/* =========================================================
+   4. LOAD AUTHENTICATED FARMER
+========================================================= */
+
+async function fetchFarmerProfile() {
+
+    const data = await apiRequest(API.farmerMe);
+
+    farmer = data.farmer || data;
+
+    if (
+        !farmer ||
+        !(farmer.farmerId || farmer.farmer_id)
+    ) {
+        throw new Error(
+            "Farmer information could not be loaded."
+        );
+    }
+
+    loadProfile();
+
+    return farmer;
+}
+
+
+/* =========================================================
+   5. DISPLAY FARMER PROFILE
+========================================================= */
+
+function loadProfile() {
+
+    if (!farmer) return;
+
+    const fullName =
+        farmer.fullName ||
+        farmer.full_name ||
+        farmer.name ||
+        "Community Farmer";
+
+    const farmerID =
+        farmer.farmerId ||
+        farmer.farmer_id ||
+        "Not available";
+
+    const profileImage = safeImageURL(
+        farmer.profileImage ||
+        farmer.profile_image_url
+    );
+
+    const avatar = getElement("profileImage");
+
+    const cardName = getElement("profileCardName");
+
+    const cardID = getElement("profileCardID");
+
+    const nameInput = getElement("farmerName");
+
+    const idInput = getElement("farmerID");
+
+    if (cardName) {
+        cardName.textContent = fullName;
+    }
+
+    if (cardID) {
+        cardID.textContent = "Farmer ID: " + farmerID;
+    }
+
+    if (nameInput) {
+        nameInput.value = fullName;
+    }
+
+    if (idInput) {
+        idInput.value = farmerID;
+    }
+
+    if (avatar) {
+        avatar.src = profileImage;
+        avatar.onerror = function() {
+            this.onerror = null;
+            this.src = DEFAULT_AVATAR;
+        };
+    }
+}
+
+
+/* =========================================================
+   6. PROFILE AVATAR TOGGLE
+========================================================= */
+
+function toggleProfileUpload() {
+
+    const avatar = getElement("profileImage");
+
+    const details = getElement("profileDetails");
+
+    const actions = getElement("profilePhotoActions");
+
+    if (!avatar) return;
+
+    const isOpen = details
+        ? details.classList.toggle("is-open")
+        : actions
+            ? actions.classList.toggle("active")
+            : false;
+
+    if (actions && details) {
+        actions.classList.toggle("active", isOpen);
+    }
+
+    avatar.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+    );
+}
+
+
+function initializeProfileAvatar() {
+
+    const avatar = getElement("profileImage");
+
+    if (!avatar) return;
+
+    avatar.setAttribute("role", "button");
+    avatar.setAttribute("tabindex", "0");
+    avatar.setAttribute("aria-expanded", "false");
+    avatar.setAttribute(
+        "aria-label",
+        "Show or hide farmer profile"
+    );
+
+    avatar.addEventListener("click", toggleProfileUpload);
+
+    avatar.addEventListener("keydown", function(event) {
+
+        if (
+            event.key === "Enter" ||
+            event.key === " "
+        ) {
+            event.preventDefault();
+            toggleProfileUpload();
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   7. PROFILE PHOTO UPLOAD
+========================================================= */
+
+function initializeProfilePhotoUpload() {
+
+    const input = getElement("photoUpload");
+
+    const avatar = getElement("profileImage");
+
+    const uploadButton = getElement("uploadProfilePhoto");
+
+    if (!input || !avatar) return;
+
+    if (uploadButton) {
+
+        uploadButton.addEventListener("click", function() {
+
+            if (!input.disabled) {
+                input.click();
+            }
+
+        });
+
+    }
+
+    input.addEventListener("change", async function() {
+
+        const file = input.files[0];
+
+        if (!file) return;
+
+        if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+
+            alert("Only JPG, PNG, WEBP and GIF images are allowed.");
+
+            input.value = "";
+
+            return;
+        }
+
+        if (file.size > MAX_IMAGE_SIZE) {
+
+            alert("Profile photo must not exceed 3MB.");
+
+            input.value = "";
+
+            return;
+        }
+
+        const formData = new FormData();
+
+        formData.append("profileImage", file);
+
+        input.disabled = true;
+
+        if (uploadButton) {
+            uploadButton.disabled = true;
+            uploadButton.textContent = "Uploading...";
+        }
+
+        try {
+
+            const data = await apiRequest(
+                API.profilePhoto,
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+            if (!data.success || !data.profile_image_url) {
+
+                throw new Error(
+                    "The server did not return the uploaded photo URL."
+                );
+            }
+
+            // Update the authenticated farmer data.
+
+            farmer.profile_image_url = data.profile_image_url;
+            farmer.profileImage = data.profile_image_url;
+
+            // Immediately display the uploaded photo.
+
+            avatar.src = safeImageURL(data.profile_image_url);
+
+            // Update other profile details.
+
+            loadProfile();
+
+            // Close the profile details/actions.
+
+            const details = getElement("profileDetails");
+
+            const actions = getElement("profilePhotoActions");
+
+            if (details) {
+                details.classList.remove("is-open");
+            }
+
+            if (actions) {
+                actions.classList.remove("active");
+            }
+
+            avatar.setAttribute("aria-expanded", "false");
+
+            alert("Profile photo updated successfully.");
+
+        } catch (error) {
+
+            alert(error.message);
+
+        } finally {
+
+            input.disabled = false;
+
+            input.value = "";
+
+            if (uploadButton) {
+                uploadButton.disabled = false;
+                uploadButton.textContent = "Upload Photo";
+            }
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   8. COMMUNITY POST IMAGE UPLOAD CONTROLS
+========================================================= */
+
+function createImageUploadControls() {
+
+    const composer =
+        document.querySelector(".composer-card") ||
+        getElement("postComposer");
+
+    if (!composer) return;
+
+    if (getElement("postFile")) return;
+
+    const uploadContainer = document.createElement("div");
+
+    uploadContainer.style.marginTop = "10px";
+
+    uploadContainer.innerHTML = `
+
+        <label for="postFile"
+            style="
+                display:inline-block;
+                padding:8px 12px;
+                border:1px solid #DED6D0;
+                border-radius:5px;
+                font-size:11px;
+                color:#8A2348;
+                font-weight:700;
+                cursor:pointer;
+            ">
+            + Add Post Image
+        </label>
+
+        <input
+            type="file"
+            id="postFile"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            hidden
+        >
+
+        <div style="margin-top:10px;">
+
+            <img
+                id="postImagePreview"
+                alt="Post image preview"
+                style="
+                    display:none;
+                    width:100%;
+                    max-height:300px;
+                    object-fit:contain;
+                    border-radius:6px;
+                "
+            >
+
+            <button
+                type="button"
+                id="removePostImage"
+                style="
+                    display:none;
+                    margin-top:6px;
+                    border:0;
+                    background:transparent;
+                    color:#8A2348;
+                    font-size:11px;
+                    cursor:pointer;
+                ">
+                Remove image
+            </button>
+
+        </div>
+    `;
+
+    const controls = composer.querySelector(".post-controls");
+
+    if (controls) {
+        composer.insertBefore(uploadContainer, controls);
+    } else {
+        composer.appendChild(uploadContainer);
+    }
+
+    getElement("postFile").addEventListener(
+        "change",
+        handlePostImageSelection
+    );
+
+    getElement("removePostImage").addEventListener(
+        "click",
+        removePostImage
+    );
+}
+
+
+/* =========================================================
+   9. SELECT COMMUNITY POST IMAGE
+========================================================= */
+
+function handlePostImageSelection(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+
+        alert("Only JPG, PNG, WEBP and GIF images are allowed.");
+
+        event.target.value = "";
+
+        return;
+    }
+
+    if (file.size > MAX_IMAGE_SIZE) {
+
+        alert("Post image must not exceed 3MB.");
+
+        event.target.value = "";
+
+        return;
+    }
+
+    selectedPostImage = file;
+
+    const preview = getElement("postImagePreview");
+
+    const removeButton = getElement("removePostImage");
+
+    if (!preview) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        preview.src = e.target.result;
+
+        preview.style.display = "block";
+
+        if (removeButton) {
+            removeButton.style.display = "inline-block";
+        }
+
+    };
+
+    reader.readAsDataURL(file);
+}
+
+
+/* =========================================================
+   10. REMOVE SELECTED POST IMAGE
+========================================================= */
+
+function removePostImage() {
+
+    selectedPostImage = null;
+
+    const input = getElement("postFile");
+
+    const preview = getElement("postImagePreview");
+
+    const removeButton = getElement("removePostImage");
+
+    if (input) input.value = "";
+
+    if (preview) {
+
+        preview.removeAttribute("src");
+
+        preview.style.display = "none";
+    }
+
+    if (removeButton) {
+        removeButton.style.display = "none";
+    }
+}
+
+
+/* =========================================================
+   11. CREATE COMMUNITY POST
+========================================================= */
+
+async function createPost() {
+
+    if (isPublishing) return;
+
+    const contentInput = getElement("postContent");
+
+    const categoryInput = getElement("postCategory");
+
+    if (!contentInput) return;
+
+    const content = contentInput.value.trim();
+
+    const category = categoryInput
+        ? categoryInput.value
+        : "General Agriculture";
+
+    if (!content) {
+
+        alert("Please write something before publishing.");
+
+        contentInput.focus();
+
+        return;
+    }
+
+    if (content.length > 10000) {
+
+        alert("Your post is too long.");
+
+        return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("title", content.substring(0, 100));
+
+    formData.append("content", content);
+
+    formData.append("category", category);
+
+    if (selectedPostImage) {
+        formData.append("image", selectedPostImage);
+    }
+
+    const publishButton =
+        getElement("publishPostButton") ||
+        document.querySelector(
+            ".post-controls .primary-button"
+        );
+
+    isPublishing = true;
+
+    if (publishButton) {
+
+        publishButton.disabled = true;
+
+        publishButton.textContent = "Publishing...";
+    }
+
+    try {
+
+        await apiRequest(API.posts, {
+            method: "POST",
+            body: formData
+        });
+
+        contentInput.value = "";
+
+        removePostImage();
+
+        await loadPosts();
+
+        showAllPosts();
+
+        alert("Your post has been published successfully.");
+
+    } catch (error) {
+
+        alert(error.message);
+
+    } finally {
+
+        isPublishing = false;
+
+        if (publishButton) {
+
+            publishButton.disabled = false;
+
+            publishButton.textContent = "Publish Post";
+        }
+
+    }
+}
+
+
+/* =========================================================
+   12. LOAD COMMUNITY POSTS
+========================================================= */
+
+async function loadPosts() {
+
+    if (isLoadingPosts) return;
+
+    const container = getElement("postsContainer");
+
+    if (!container) return;
+
+    isLoadingPosts = true;
+
+    container.innerHTML = `
+        <div class="empty-feed">
+            <p>Loading community posts...</p>
+        </div>
+    `;
+
+    try {
+
+        const data = await apiRequest(API.posts);
+
+        if (Array.isArray(data)) {
+
+            posts = data;
+
+        } else if (Array.isArray(data.posts)) {
+
+            posts = data.posts;
+
+        } else {
+
+            throw new Error(
+                "Unexpected posts response from server."
+            );
+        }
+
+        renderPosts();
+
+    } catch (error) {
+
+        console.error("LOAD POSTS ERROR:", error);
+
+        container.innerHTML = `
+
+            <div class="empty-feed">
+
+                <h3>Unable to load posts.</h3>
+
+                <p>${escapeHTML(error.message)}</p>
+
+                <button
+                    class="primary-button"
+                    type="button"
+                    onclick="loadPosts()">
+                    Try Again
+                </button>
+
+            </div>
+        `;
+
+    } finally {
+
+        isLoadingPosts = false;
+
+    }
+}
+
+
+
+/* =========================================================
+   13. POST INFORMATION HELPERS
+========================================================= */
+
+function getPostAuthor(post) {
+
+    if (
+        post.author_type === "admin" ||
+        post.admin_id
+    ) {
+        return "Gadeh Administration";
+    }
+
+    return (
+        post.full_name ||
+        post.author ||
+        "Community Farmer"
+    );
+}
+
+
+/* =========================================================
+   GET POST AUTHOR PROFILE IMAGE
+========================================================= */
+
+function getPostAuthorImage(post) {
+
+    // Administration uses the default avatar.
+
+    if (
+        post.author_type === "admin" ||
+        post.admin_id
+    ) {
+        return DEFAULT_AVATAR;
+    }
+
+    const imageURL =
+        post.profile_image_url ||
+        post.profileImage ||
+        post.author_profile_image ||
+        post.author_image_url ||
+        null;
+
+    return imageURL
+        ? safeImageURL(imageURL)
+        : DEFAULT_AVATAR;
+}
+
+
+/* =========================================================
+   GET POST FARMER ID
+========================================================= */
+
+function getPostFarmerID(post) {
+
+    return (
+        post.farmer_id ||
+        post.farmerID ||
+        ""
+    );
+}
+
+
+/* =========================================================
+   CHECK POST OWNERSHIP
+========================================================= */
+
+function isPostMine(post) {
+
+    if (post.is_mine === true) return true;
+
+    if (!farmer) return false;
+
+    const farmerCredentialID =
+        post.farmer_credential_id;
+
+    if (
+        farmerCredentialID != null &&
+        farmer.id != null
+    ) {
+        return (
+            Number(farmerCredentialID) ===
+            Number(farmer.id)
+        );
+    }
+
+    return false;
+}
+
+
+/* =========================================================
+   GET POST LIKES COUNT
+========================================================= */
+
+function getLikesCount(post) {
+
+    if (post.likes_count != null) {
+        return Math.max(0, Number(post.likes_count) || 0);
+    }
+
+    if (Array.isArray(post.likes)) {
+        return post.likes.length;
+    }
+
+    return 0;
+}
+
+
+/* =========================================================
+   GET POST COMMENTS COUNT
+========================================================= */
+
+function getCommentsCount(post) {
+
+    if (post.comment_count != null) {
+        return Math.max(0, Number(post.comment_count) || 0);
+    }
+
+    if (post.comments_count != null) {
+        return Math.max(0, Number(post.comments_count) || 0);
+    }
+
+    if (Array.isArray(post.comments)) {
+        return post.comments.length;
+    }
+
+    return 0;
+}
+
+/* =========================================================
+   14. DISPLAY COMMENTS
+========================================================= */
+
+function renderComments(comments) {
+
+    if (!Array.isArray(comments)) return "";
+
+    return comments.map(comment => {
+
+        const author =
+            comment.full_name ||
+            comment.author ||
+            "Community Farmer";
+
+        const content = comment.content || "";
+
+        return `
+
+            <div class="comment-item">
+
+                <div class="comment-copy">
+
+                    <strong>
+                        ${escapeHTML(author)}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(content)}
+                    </span>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }).join("");
+}
+
+
+/* =========================================================
+   15. FILTER COMMUNITY POSTS
+========================================================= */
+
+function getVisiblePosts() {
+
+    let visiblePosts = posts;
+
+    if (currentFilter === "mine") {
+
+        visiblePosts = posts.filter(isPostMine);
+
+    }
+
+    if (currentFilter === "archived") {
+
+        visiblePosts = posts.filter(post => {
+            return post.is_archived === true ||
+                   post.archived === true;
+        });
+
+    }
+
+    if (currentFilter === "category" && currentCategory) {
+
+        visiblePosts = posts.filter(post => {
+
+            return String(post.category || "").toLowerCase() ===
+                   currentCategory.toLowerCase();
+
+        });
+
+    }
+
+    return visiblePosts;
+}
+
+
+/* =========================================================
+   16. DISPLAY COMMUNITY POSTS
+========================================================= */
+
+function renderPosts() {
+
+    const container = getElement("postsContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    const visiblePosts = getVisiblePosts();
+
+    if (visiblePosts.length === 0) {
+
+        const message = currentFilter === "mine"
+            ? "You have not published any posts yet."
+            : currentFilter === "archived"
+                ? "You have no archived posts."
+                : "Be the first farmer to share useful information.";
+
+        container.innerHTML = `
+
+            <div class="empty-feed">
+
+                <h3>No posts available yet.</h3>
+
+                <p>${escapeHTML(message)}</p>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+    visiblePosts.forEach(post => {
+
+        const postID = Number(post.id);
+
+        const author = getPostAuthor(post);
+
+        const farmerID = getPostFarmerID(post);
+
+        const liked =
+            post.liked_by_me === true ||
+            post.is_liked === true;
+
+        const likesCount = getLikesCount(post);
+
+        const comments = Array.isArray(post.comments)
+            ? post.comments
+            : [];
+
+        const commentsCount = getCommentsCount(post);
+
+        const imageURL = post.image_url
+            ? safeImageURL(post.image_url)
+            : null;
+
+        const card = document.createElement("article");
+
+        card.className = "post-card";
+
+        card.dataset.postId = postID;
+
+        card.innerHTML = `
+
+            <div class="post-author">
+
+                <img
+    class="author-photo"
+    src="${escapeHTML(getPostAuthorImage(post))}"
+    alt="Community author"
+    loading="lazy"
+    onerror="this.onerror=null;this.src='${DEFAULT_AVATAR}'"
+>
+
+                <div>
+
+                    <div class="author-name">
+                        ${escapeHTML(author)}
+                    </div>
+
+                    <div class="post-date">
+
+                        ${farmerID
+                            ? "Farmer ID: " +
+                              escapeHTML(farmerID) + " · "
+                            : ""
+                        }
+
+                        ${escapeHTML(formatDate(post.created_at))}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <span class="post-category">
+                    ${escapeHTML(
+                        post.category || "General Agriculture"
+                    )}
+                </span>
+
+            </div>
+
+
+            <div class="post-content">
+                ${escapeHTML(post.content)}
+            </div>
+
+
+            ${imageURL ? `
+
+                <img
+                    class="post-media"
+                    src="${escapeHTML(imageURL)}"
+                    alt="Image shared by ${escapeHTML(author)}"
+                    loading="lazy"
+                    style="
+                        display:block;
+                        width:100%;
+                        height:auto;
+                        max-height:500px;
+                        object-fit:contain;
+                        margin:10px auto;
+                        border-radius:6px;
+                    "
+                >
+
+            ` : ""}
+
+
+            <div class="post-actions">
+
+                <button
+                    type="button"
+                    class="action-button ${liked ? "liked" : ""}"
+                    data-action="like"
+                    data-id="${postID}"
+                    aria-pressed="${liked}">
+
+                    ♥ ${liked ? "Liked" : "Like"}
+                    (${likesCount} likes)
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="action-button"
+                    data-action="comment-focus"
+                    data-id="${postID}">
+
+                    Comment (${commentsCount} comments)
+
+                </button>
+
+            </div>
+
+
+            <div class="comments-area">
+
+                ${renderComments(comments)}
+
+
+                <div class="comment-form">
+
+                    <input
+                        type="text"
+                        class="comment-input"
+                        id="comment-${postID}"
+                        maxlength="2000"
+                        placeholder="Write a comment..."
+                    >
+
+                    <button
+                        type="button"
+                        class="comment-button"
+                        data-action="comment"
+                        data-id="${postID}">
+                        Send
+                    </button>
+
+                </div>
+
+            </div>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+}
+
+
+
+/* =========================================================
+   17. LIKE / UNLIKE POST
+========================================================= */
+
+async function toggleLike(postID) {
+
+    const button = document.querySelector(
+        `[data-action="like"][data-id="${postID}"]`
+    );
+
+    if (!button || button.disabled) return;
+
+    const post = posts.find(
+        item => Number(item.id) === Number(postID)
+    );
+
+    if (!post) return;
+
+    button.disabled = true;
+
+    try {
+
+        const data = await apiRequest(
+            `${API.posts}/${postID}/like`,
+            {
+                method: "POST"
+            }
+        );
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message || "Unable to update like."
+            );
+
+        }
+
+        // Update the actual farmer's like state.
+
+        post.liked_by_me = data.liked;
+        post.is_liked = data.liked;
+
+        // IMPORTANT: Backend returns data.likes, not data.likes_count.
+
+        const updatedLikes = Number(data.likes);
+
+        if (!Number.isFinite(updatedLikes)) {
+
+            throw new Error("Invalid like count returned by server.");
+
+        }
+
+        post.likes_count = updatedLikes;
+        post.likes = updatedLikes;
+
+        // Immediately update the existing button.
+
+        button.classList.toggle("liked", data.liked);
+
+        button.setAttribute(
+            "aria-pressed",
+            String(data.liked)
+        );
+
+        button.textContent =
+            `♥ ${data.liked ? "Liked" : "Like"} (${updatedLikes} likes)`;
+
+    } catch (error) {
+
+        alert(error.message);
+
+    } finally {
+
+        button.disabled = false;
+
+    }
+
+}
+
+
+
+
+/* =========================================================
+   18. ADD COMMENT
+========================================================= */
+
+async function addComment(postID) {
+
+    const input = getElement("comment-" + postID);
+
+    if (!input) return;
+
+    const content = input.value.trim();
+
+    if (!content) {
+
+        alert("Please write a comment.");
+
+        input.focus();
+
+        return;
+    }
+
+    if (content.length > 2000) {
+
+        alert("Your comment is too long.");
+
+        return;
+    }
+
+    const button = document.querySelector(
+        `[data-action="comment"][data-id="${postID}"]`
+    );
+
+    if (!button || button.disabled) return;
+
+    button.disabled = true;
+
+    button.textContent = "Sending...";
+
+    try {
+
+        const data = await apiRequest(
+            `${API.posts}/${postID}/comments`,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    content
+                })
+            }
+        );
+
+        if (!data.success) {
+
+            throw new Error(
+                data.message || "Unable to add comment."
+            );
+
+        }
+
+        // Retrieve the post from the frontend collection.
+
+        const post = posts.find(
+            item => Number(item.id) === Number(postID)
+        );
+
+        // Update the comment count immediately.
+
+        const updatedCount = Number(data.comments);
+
+        if (!Number.isFinite(updatedCount)) {
+
+            throw new Error(
+                "Invalid comment count returned by server."
+            );
+
+        }
+
+        if (post) {
+
+            post.comments_count = updatedCount;
+            post.comment_count = updatedCount;
+            post.commentsCount = updatedCount;
+
+        }
+
+        // Clear the comment input.
+
+        input.value = "";
+
+        // Immediately update the comment count button.
+
+        button.textContent =
+            `Send`;
+
+        const commentFocusButton = document.querySelector(
+            `[data-action="comment-focus"][data-id="${postID}"]`
+        );
+
+        if (commentFocusButton) {
+
+            commentFocusButton.textContent =
+                `Comment (${updatedCount} comments)`;
+
+        }
+
+        // Reload posts to retrieve the newly saved comment.
+
+        await loadPosts();
+
+        // Keep comments visible.
+
+        const updatedCard = document.querySelector(
+            `.post-card[data-post-id="${postID}"]`
+        );
+
+        if (updatedCard) {
+
+            const commentsArea =
+                updatedCard.querySelector(".comments-area");
+
+            if (commentsArea) {
+
+                commentsArea.classList.add("active");
+
+            }
+
+        }
+
+    } catch (error) {
+
+        alert(error.message);
+
+    } finally {
+
+        const updatedButton = document.querySelector(
+            `[data-action="comment"][data-id="${postID}"]`
+        );
+
+        if (updatedButton) {
+
+            updatedButton.disabled = false;
+            updatedButton.textContent = "Send";
+
+        }
+
+    }
+
+}
+
+
+
+/* =========================================================
+   19. POST ACTION EVENTS
+========================================================= */
+
+function initializePostEvents() {
+
+    const container = getElement("postsContainer");
+
+    if (!container) return;
+
+    container.addEventListener("click", function(event) {
+
+        const button = event.target.closest(
+            "button[data-action]"
+        );
+
+        if (!button) return;
+
+        const postID = Number(button.dataset.id);
+
+        if (!postID) return;
+
+        const action = button.dataset.action;
+
+        if (action === "like") {
+
+            toggleLike(postID);
+
+        }
+
+        if (action === "comment") {
+
+            addComment(postID);
+
+        }
+
+        if (action === "comment-focus") {
+
+            const card = button.closest(".post-card");
+
+            const commentsArea =
+                card?.querySelector(".comments-area");
+
+            if (!commentsArea) return;
+
+            commentsArea.classList.toggle("active");
+
+            if (commentsArea.classList.contains("active")) {
+
+                const input =
+                    commentsArea.querySelector(".comment-input");
+
+                if (input) input.focus();
+            }
+        }
+
+    });
+
+
+    // ENTER KEY TO SEND COMMENT
+
+    container.addEventListener("keydown", function(event) {
+
+        if (
+            event.key !== "Enter" ||
+            event.target.tagName !== "INPUT" ||
+            !event.target.classList.contains("comment-input")
+        ) {
+            return;
+        }
+
+        event.preventDefault();
+
+        const postID = Number(
+            event.target.id.replace("comment-", "")
+        );
+
+        if (postID) {
+            addComment(postID);
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   20. NAVIGATION — ALL POSTS
+========================================================= */
+
+function showAllPosts() {
+
+    currentFilter = "all";
+
+    currentCategory = null;
+
+    const heading = getElement("feedTitle");
+
+    if (heading) {
+        heading.textContent = "Community Discussions";
+    }
+
+    updateNavigation("all");
+
+    renderPosts();
+}
+
+
+/* =========================================================
+   21. NAVIGATION — MY POSTS
+========================================================= */
+
+function showMyPosts() {
+
+    currentFilter = "mine";
+
+    currentCategory = null;
+
+    const heading = getElement("feedTitle");
+
+    if (heading) {
+        heading.textContent = "My Posts";
+    }
+
+    updateNavigation("mine");
+
+    renderPosts();
+}
+
+
+/* =========================================================
+   22. NAVIGATION — ARCHIVED POSTS
+========================================================= */
+
+function showArchivedPosts() {
+
+    currentFilter = "archived";
+
+    currentCategory = null;
+
+    const heading = getElement("feedTitle");
+
+    if (heading) {
+        heading.textContent = "Archived Posts";
+    }
+
+    updateNavigation("archived");
+
+    renderPosts();
+}
+
+
+/* =========================================================
+   23. NAVIGATION — CATEGORY POSTS
+========================================================= */
+
+function showCategoryPosts(category) {
+
+    currentFilter = "category";
+
+    currentCategory = category;
+
+    const heading = getElement("feedTitle");
+
+    if (heading) {
+        heading.textContent = category + " Discussions";
+    }
+
+    updateNavigation("category");
+
+    renderPosts();
+}
+
+
+/* =========================================================
+   24. NAVIGATION ACTIVE STATE
+========================================================= */
+
+function updateNavigation(activeView) {
+
+    document.querySelectorAll(".community-nav a").forEach(link => {
+
+        const view = link.dataset.view;
+
+        const href = link.getAttribute("href") || "";
+
+        const label = link.textContent.trim().toLowerCase();
+
+        let active = false;
+
+        if (activeView === "all") {
+
+            active =
+                view === "all" ||
+                href === "#community-feed" &&
+                label.includes("all");
+
+        }
+
+        if (activeView === "mine") {
+            active =
+                view === "mine" ||
+                label.includes("my post");
+        }
+
+        if (activeView === "archived") {
+            active =
+                view === "archived" ||
+                label.includes("archived");
+        }
+
+        if (activeView === "category") {
+            active = view === "category";
+        }
+
+        link.classList.toggle("active", active);
+
+        if (active) {
+            link.setAttribute("aria-current", "page");
+        } else {
+            link.removeAttribute("aria-current");
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   25. PUBLISH NAVIGATION
+========================================================= */
+
+function openPostComposer() {
+
+    updateNavigation("publish");
+
+    const composer =
+        getElement("postComposer") ||
+        getElement("createPostForm");
+
+    if (!composer) return;
+
+    composer.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+
+    const input = getElement("postContent");
+
+    if (input) {
+        setTimeout(() => input.focus(), 350);
+    }
+}
+
+
+/* =========================================================
+   26. COMMUNITY NAVIGATION
+========================================================= */
+
+function openCommunityFooter() {
+
+    updateNavigation("community");
+
+    const footer = getElement("community-footer");
+
+    if (footer) {
+
+        footer.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
+    }
+}
+
+
+/* =========================================================
+   27. NAVIGATION EVENT HANDLERS
+========================================================= */
+
+function initializeNavigation() {
+
+    document.querySelectorAll(".community-nav a").forEach(link => {
+
+        link.addEventListener("click", function(event) {
+
+            const href = this.getAttribute("href") || "";
+
+            const view = this.dataset.view;
+
+            const label = this.textContent.trim().toLowerCase();
+
+            // ALL POSTS
+
+            if (
+                view === "all" ||
+                label.includes("all posts")
+            ) {
+
+                event.preventDefault();
+
+                showAllPosts();
+
+                const feed = getElement("community-feed");
+
+                if (feed) {
+                    feed.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+
+                return;
+            }
+
+            // MY POSTS
+
+            if (
+                view === "mine" ||
+                label.includes("my post")
+            ) {
+
+                event.preventDefault();
+
+                showMyPosts();
+
+                const feed = getElement("community-feed");
+
+                if (feed) {
+                    feed.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+                }
+
+                return;
+            }
+
+            // ARCHIVED POSTS
+
+            if (
+                view === "archived" ||
+                label.includes("archived")
+            ) {
+
+                event.preventDefault();
+
+                showArchivedPosts();
+
+                return;
+            }
+
+            // PUBLISH
+
+            if (
+                href === "#postComposer" ||
+                href === "#createPostForm" ||
+                label.includes("publish")
+            ) {
+
+                event.preventDefault();
+
+                openPostComposer();
+
+                return;
+            }
+
+            // COMMUNITY / FOOTER
+
+            if (
+                href === "#community-footer" ||
+                label === "community"
+            ) {
+
+                event.preventDefault();
+
+                openCommunityFooter();
+
+                return;
+            }
+
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   28. HAMBURGER MENU — PRESERVED
+========================================================= */
+
+function initializeHamburgerMenu() {
+
+    const menuToggle = getElement("menuToggle");
+
+    const menuClose = getElement("menuClose");
+
+    const menuOverlay = getElement("menuOverlay");
+
+    const communityMenu = getElement("communityMenu");
+
+    if (
+        !menuToggle ||
+        !menuClose ||
+        !menuOverlay ||
+        !communityMenu
+    ) {
+        return;
+    }
+
+    function openCommunityMenu() {
+
+        communityMenu.classList.add("is-open");
+
+        menuOverlay.classList.add("is-visible");
+
+        menuToggle.setAttribute("aria-expanded", "true");
+
+        menuToggle.setAttribute(
+            "aria-label",
+            "Close navigation menu"
+        );
+
+        communityMenu.setAttribute("aria-hidden", "false");
+
+        document.body.classList.add("menu-open");
+
+    }
+
+
+    function closeCommunityMenu() {
+
+        communityMenu.classList.remove("is-open");
+
+        menuOverlay.classList.remove("is-visible");
+
+        menuToggle.setAttribute("aria-expanded", "false");
+
+        menuToggle.setAttribute(
+            "aria-label",
+            "Open navigation menu"
+        );
+
+        communityMenu.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove("menu-open");
+
+    }
+
+
+    menuToggle.addEventListener("click", function() {
+
+        if (communityMenu.classList.contains("is-open")) {
+
+            closeCommunityMenu();
+
+        } else {
+
+            openCommunityMenu();
+
+        }
+
+    });
+
+
+    menuClose.addEventListener("click", closeCommunityMenu);
+
+    menuOverlay.addEventListener("click", closeCommunityMenu);
+
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+
+            closeCommunityMenu();
+
+            const details = getElement("profileDetails");
+
+            const actions = getElement("profilePhotoActions");
+
+            if (details) {
+                details.classList.remove("is-open");
+            }
+
+            if (actions) {
+                actions.classList.remove("active");
+            }
+
+            const avatar = getElement("profileImage");
+
+            if (avatar) {
+                avatar.setAttribute("aria-expanded", "false");
+            }
+
+        }
+
+    });
+
+
+    const logoutLink = getElement("logoutLink");
+
+    if (logoutLink) {
+
+        logoutLink.addEventListener("click", function(event) {
+
+            event.preventDefault();
+
+            closeCommunityMenu();
+
+            logoutFarmer();
+
+        });
+
+    }
+
+}
+
+
+/* =========================================================
+   29. LOGOUT
+========================================================= */
+
+async function logoutFarmer() {
+
+    try {
+
+        await apiRequest(API.logout, {
+            method: "POST"
+        });
+
+    } catch (error) {
+
+        console.error("Logout error:", error);
+
+    } finally {
+
+        localStorage.removeItem("farmerToken");
+
+        localStorage.removeItem("farmerData");
+
+        window.location.replace("/community-login");
+
+    }
+
+}
+
+
+/* =========================================================
+   30. INITIALIZE POST PUBLISH BUTTON
+========================================================= */
+
+function initializePublishButton() {
+
+    const button =
+        getElement("publishPostButton") ||
+        document.querySelector(
+            ".post-controls .primary-button"
+        );
+
+    if (!button) return;
+
+    button.addEventListener("click", function(event) {
+
+        event.preventDefault();
+
+        createPost();
+
+    });
+
+}
+
+
+/* =========================================================
+   31. INITIALIZE COMMUNITY PAGE
+========================================================= */
+
+async function initializeCommunity() {
+
+    if (initialized) return;
+
+    initialized = true;
+
+    // Set initial navigation.
+
+    currentFilter = "all";
+
+    updateNavigation("all");
+
+    const heading = getElement("feedTitle");
+
+    if (heading) {
+        heading.textContent = "Community Discussions";
+    }
+
+    // Initialize page controls.
+
+    initializeProfileAvatar();
+
+    initializeProfilePhotoUpload();
+
+    createImageUploadControls();
+
+    initializePostEvents();
+
+    initializeNavigation();
+
+    initializeHamburgerMenu();
+
+    initializePublishButton();
+
+    // Load authenticated farmer first.
+
+    try {
+
+        await fetchFarmerProfile();
+
+        // Load posts only after authentication succeeds.
+
+        await loadPosts();
+
+    } catch (error) {
+
+        console.error(
+            "COMMUNITY INITIALIZATION ERROR:",
+            error
+        );
+
+        if (!window.location.pathname.includes("community-login")) {
+
+            alert(error.message);
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   32. START COMMUNITY
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    initializeCommunity
+);
+</script>
+
+</body>
+</html>
+
+

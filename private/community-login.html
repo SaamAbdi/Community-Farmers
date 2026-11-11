@@ -1,0 +1,738 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+    <title>Farmer Login | GADEH</title>
+
+    <style>
+        /* =========================================
+           GLOBAL STYLING
+        ========================================= */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            padding: 25px 16px 40px;
+            background: #F7F5F2;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        /* =========================================
+           GADEH LOGIN HEADER
+        ========================================= */
+
+        .login-header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 15px 15px 25px;
+        }
+
+        .login-logo {
+            width: 105px;
+            height: 105px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .login-header h1 {
+            color: #800020;
+            font-size: 25px;
+            font-weight: 750;
+            letter-spacing: 0.5px;
+            line-height: 1.3;
+        }
+
+
+        
+/* =========================================
+   3D LAVENDER LOGIN CARD
+========================================= */
+
+.login-container {
+    width: 100%;
+    max-width: 430px;
+    padding: 38px 30px;
+
+    background: linear-gradient(
+        145deg,
+        #F5EFF8,
+        #EAE1F0
+    );
+
+    border: 1px solid rgba(128, 0, 32, 0.08);
+    border-radius: 16px;
+
+    /* 3D SHADOW EFFECT */
+    box-shadow:
+        0 2px 5px rgba(70, 45, 75, 0.04),
+        0 10px 20px rgba(70, 45, 75, 0.09),
+        0 20px 40px rgba(70, 45, 75, 0.12),
+        inset 0 1px 2px rgba(255, 255, 255, 0.9);
+
+    position: relative;
+    transform: perspective(1000px) translateY(0);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* DESKTOP HOVER EFFECT */
+
+@media (hover: hover) and (pointer: fine) {
+
+    .login-container:hover {
+        transform:
+            perspective(1000px)
+            translateY(-5px);
+
+        box-shadow:
+            0 5px 10px rgba(70, 45, 75, 0.05),
+            0 15px 30px rgba(70, 45, 75, 0.12),
+            0 28px 50px rgba(70, 45, 75, 0.16),
+            inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    }
+
+}
+
+
+/* =========================================
+   TABLET RESPONSIVENESS
+========================================= */
+
+@media (max-width: 768px) {
+
+    .login-container {
+        max-width: 420px;
+        padding: 32px 25px;
+        border-radius: 14px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL SCREEN RESPONSIVENESS
+========================================= */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 18px 14px 25px;
+        justify-content: flex-start;
+    }
+
+    .login-header {
+        padding: 15px 10px 22px;
+    }
+
+    .login-logo {
+        width: 78px;
+        height: 78px;
+    }
+
+    .login-header h1 {
+        font-size: 20px;
+    }
+
+    .login-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 27px 20px;
+        border-radius: 13px;
+
+        box-shadow:
+            0 4px 10px rgba(70, 45, 75, 0.07),
+            0 12px 25px rgba(70, 45, 75, 0.11),
+            inset 0 1px 2px rgba(255, 255, 255, 0.9);
+    }
+
+    .login-container h2 {
+        font-size: 21px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+        margin-bottom: 23px;
+    }
+
+    .login-container input:not([type="checkbox"]) {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    #loginButton {
+        padding: 13px;
+        font-size: 15px;
+    }
+
+    .login-footer {
+        margin-top: 10px;
+    }
+
+}
+
+
+/* =========================================
+   EXTRA SMALL SCREENS
+========================================= */
+
+@media (max-width: 360px) {
+
+    .login-container {
+        padding: 23px 16px;
+    }
+
+    .login-header h1 {
+        font-size: 18px;
+    }
+
+    .footer-name {
+        font-size: 11px;
+    }
+
+}
+
+
+
+        /* =========================================
+           FORM LABELS
+        ========================================= */
+
+        .login-container form > label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #444444;
+        }
+
+
+        /* =========================================
+           INPUT FIELDS
+        ========================================= */
+
+        .login-container input:not([type="checkbox"]) {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 20px;
+            border: 1px solid #DDDDDD;
+            border-radius: 6px;
+            font-size: 15px;
+            background: #FFFFFF;
+        }
+
+        .login-container input:focus {
+            outline: none;
+            border-color: #781F35;
+        }
+
+
+        /* =========================================
+           REMEMBER ME
+        ========================================= */
+
+        .remember-me {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3px auto 22px;
+        }
+
+        .remember-me label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            margin: 0;
+            color: #777777;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            margin: 0;
+            padding: 0;
+            accent-color: #800020;
+            cursor: pointer;
+        }
+
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================= */
+
+        #loginButton {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #781F35;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.25s ease;
+        }
+
+        #loginButton:hover {
+            background: #5E1729;
+        }
+
+        #loginButton:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+
+        /* =========================================
+           LOGIN MESSAGE
+        ========================================= */
+
+        .message {
+            margin-top: 16px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+           ACCOUNT LINKS
+        ========================================= */
+
+        .setup-link {
+            margin-top: 22px;
+            text-align: center;
+            font-size: 14px;
+            color: #777777;
+            line-height: 1.6;
+        }
+
+        .setup-link a {
+            color: #781F35;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .setup-link a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================================
+           MOBILE RESPONSIVENESS
+        ========================================= */
+
+        @media (max-width: 480px) {
+
+            body {
+                padding: 20px 15px 30px;
+            }
+
+            .login-header {
+                padding: 10px 10px 22px;
+            }
+
+            .login-logo {
+                width: 85px;
+                height: 85px;
+            }
+
+            .login-header h1 {
+                font-size: 21px;
+            }
+
+            .login-container {
+                padding: 30px 22px;
+            }
+
+            .login-container h2 {
+                font-size: 22px;
+            }
+
+        }
+
+/* =========================================
+   GADEH LOGIN FOOTER
+========================================= */
+
+.login-footer {
+    width: 100%;
+    padding: 25px 15px 15px;
+    margin-top: 5px;
+    background: #F7F5F2;
+    text-align: center;
+}
+
+/* SOCIAL ICONS */
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 18px;
+}
+
+.footer-socials a {
+    color: #800020;
+    font-size: 19px;
+    text-decoration: none;
+    transition: color 0.25s ease,
+                transform 0.25s ease;
+}
+
+.footer-socials a:hover {
+    color: #5E1729;
+    transform: translateY(-3px);
+}
+
+/* FOOTER TEXT */
+
+.footer-name {
+    color: #454545;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.footer-copy {
+    color: #666666;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.footer-tagline {
+    color: #777777;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+}
+
+/* MOBILE */
+
+@media (max-width: 480px) {
+
+    .login-footer {
+        padding: 22px 10px 12px;
+    }
+
+    .footer-socials {
+        gap: 25px;
+    }
+
+    .footer-name {
+        font-size: 12px;
+    }
+
+    .footer-tagline {
+        font-size: 11px;
+    }
+
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================================
+         GADEH FARMERS LOGIN HEADER
+    ========================================== -->
+
+    <header class="login-header">
+
+        <img
+            src="/images/gadeh_logo.png"
+            alt="GADEH Logo"
+            class="login-logo"
+        >
+
+        <h1>Farmers Login Portal</h1>
+
+    </header>
+
+
+    <!-- =========================================
+         FARMER LOGIN CONTAINER
+    ========================================== -->
+
+    <main class="login-container">
+
+        <h2>Farmer Login</h2>
+
+        <p class="subtitle">
+            Welcome back to the GADEH Community Farmers Platform.
+        </p>
+
+
+        <!-- =====================================
+             LOGIN FORM
+        ====================================== -->
+
+        <form id="farmerLoginForm">
+
+            <label for="farmerId">
+                Unique Farmer ID
+            </label>
+
+            <input
+                type="text"
+                id="farmerId"
+                placeholder="e.g. CF-000001"
+                required
+                autocomplete="username"
+            >
+
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+                autocomplete="current-password"
+            >
+
+
+            <!-- REMEMBER ME -->
+
+            <div class="remember-me">
+
+                <label for="rememberMe">
+
+                    <input
+                        type="checkbox"
+                        id="rememberMe"
+                        name="rememberMe"
+                    >
+
+                    Remember me
+
+                </label>
+
+            </div>
+
+
+            <!-- LOGIN BUTTON -->
+
+            <button type="submit" id="loginButton">
+                Login
+            </button>
+
+
+            <!-- LOGIN MESSAGE -->
+
+            <p id="loginMessage" class="message"></p>
+
+        </form>
+
+
+        <!-- =====================================
+             ACCOUNT ACTIVATION
+        ====================================== -->
+
+        <div class="setup-link">
+
+            First time here?
+
+            <a href="/community-farmers-account.html">
+                Activate your account
+            </a>
+
+        </div>
+
+
+        <!-- =====================================
+             FARMER REGISTRATION
+        ====================================== -->
+
+        <div class="setup-link">
+
+            Want to join the Community Farmers?
+
+            <a href="https://garissadigitaltraining.onrender.com/farmer-registration.html">
+                Register as a Farmer
+            </a>
+
+        </div>
+
+    </main>
+
+
+<!-- =========================================
+     GADEH LOGIN FOOTER
+========================================== -->
+
+<footer class="login-footer">
+
+    <div class="footer-socials">
+
+        <a href="https://www.facebook.com/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a href="https://www.instagram.com/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="https://www.linkedin.com/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+
+        <a href="https://www.youtube.com/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+
+    </div>
+
+    <p class="footer-name">
+        GADEH — Garissa Agro-Digital Empowerment Hub
+    </p>
+
+    <p class="footer-copy">
+        &copy; 2026 GADEH. All rights reserved.
+    </p>
+
+    <p class="footer-tagline">
+        Empowering Farmers Through Digital Innovation.
+    </p>
+
+</footer>
+
+    <!-- =========================================
+         FARMER LOGIN JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const form = document.getElementById("farmerLoginForm");
+        const message = document.getElementById("loginMessage");
+        const button = document.getElementById("loginButton");
+        const rememberMe = document.getElementById("rememberMe");
+
+        form.addEventListener("submit", async (event) => {
+
+            event.preventDefault();
+
+            message.textContent = "";
+            message.style.color = "#c0392b";
+
+            const farmerId = document
+                .getElementById("farmerId")
+                .value.trim()
+                .toUpperCase();
+
+            const password = document
+                .getElementById("password")
+                .value;
+
+            button.disabled = true;
+            button.textContent = "Logging in...";
+
+            try {
+
+                const response = await fetch("/api/farmer/login", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    credentials: "include",
+
+                    body: JSON.stringify({
+                        farmerId,
+                        password,
+                        rememberMe: rememberMe.checked
+                    })
+
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.message || "Login failed."
+                    );
+                }
+
+                if (!data.token) {
+                    throw new Error(
+                        "Login token was not received."
+                    );
+                }
+
+                sessionStorage.setItem(
+                    "farmerToken",
+                    data.token
+                );
+
+                message.style.color = "green";
+
+                message.textContent =
+                    "Login successful. Redirecting...";
+
+                window.location.href = "/";
+
+            } catch (error) {
+
+                message.style.color = "#c0392b";
+                message.textContent = error.message;
+
+                button.disabled = false;
+                button.textContent = "Login";
+
+            }
+
+        });
+
+    });
+
+    </script>
+
+</body>
+</html>
+

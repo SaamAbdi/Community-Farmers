@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login | Community Farmers</title>
+
+<style>
+
+/* =====================================================
+   COMMUNITY FARMERS ADMIN LOGIN
+===================================================== */
+
+:root {
+    --ivory: #F7F5F2;
+    --tan: #B08D57;
+    --lavender: #DCD3E8;
+    --burgundy: #874052;
+    --beetroot: #8A2348;
+    --grey: #777777;
+    --charcoal: #414141;
+    --white: #FFFFFF;
+    --border: #E9E3DF;
+}
+
+/* RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--ivory);
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--charcoal);
+    display: flex;
+    flex-direction: column;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.login-header {
+    width: 100%;
+    padding: 22px 7%;
+    background: var(--ivory);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-icon {
+    width: 43px;
+    height: 43px;
+    background: var(--burgundy);
+    color: var(--white);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 19px;
+    font-weight: 800;
+}
+
+.brand-name {
+    font-size: 19px;
+    font-weight: 800;
+    color: var(--burgundy);
+}
+
+.brand-subtitle {
+    font-size: 11px;
+    color: var(--grey);
+    margin-top: 4px;
+    letter-spacing: .5px;
+}
+
+/* =====================================================
+   MAIN LOGIN AREA
+===================================================== */
+
+.login-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 45px 20px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+/* LOGIN HEADING */
+
+.login-heading {
+    text-align: center;
+    margin-bottom: 27px;
+}
+
+.login-heading h1 {
+    color: var(--burgundy);
+    font-size: 27px;
+    margin-bottom: 10px;
+}
+
+.login-heading p {
+    font-size: 13px;
+    color: var(--grey);
+    line-height: 1.6;
+}
+
+/* =====================================================
+   LOGIN CARD
+===================================================== */
+
+.login-card {
+    background: var(--white);
+    padding: 35px 30px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+/* ADMIN ICON */
+
+.admin-icon {
+    width: 65px;
+    height: 65px;
+    background: #F3EBEF;
+    color: var(--burgundy);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto 22px;
+    font-size: 27px;
+}
+
+/* FORM */
+
+.form-group {
+    margin-bottom: 19px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--charcoal);
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 47px;
+    padding: 0 13px;
+    border: 1px solid var(--border);
+    background: #FCFBFA;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--charcoal);
+    outline: none;
+    transition: border .25s ease;
+}
+
+.form-group input:focus {
+    border-color: var(--tan);
+}
+
+/* PASSWORD WRAPPER */
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    padding-right: 75px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--tan);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* LOGIN BUTTON */
+
+.login-button {
+    width: 100%;
+    height: 47px;
+    margin-top: 7px;
+    background: var(--burgundy);
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .25s ease;
+}
+
+.login-button:hover {
+    background: var(--beetroot);
+}
+
+.login-button:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+/* ERROR / SUCCESS MESSAGE */
+
+.login-message {
+    display: none;
+    padding: 11px;
+    margin-bottom: 17px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.login-message.error {
+    display: block;
+    background: #FAEFF0;
+    color: #A52D3C;
+}
+
+.login-message.success {
+    display: block;
+    background: #EDF4EF;
+    color: #477B55;
+}
+
+/* SECURITY NOTE */
+
+.security-note {
+    margin-top: 22px;
+    padding-top: 17px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--grey);
+}
+
+/* BACK LINK */
+
+.back-link {
+    display: block;
+    margin-top: 22px;
+    text-align: center;
+    color: var(--tan);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--burgundy);
+    text-decoration: underline;
+}
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.login-footer {
+    text-align: center;
+    padding: 20px;
+    color: var(--grey);
+    font-size: 11px;
+    border-top: 1px solid var(--border);
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+
+    .login-header {
+        padding: 18px 20px;
+    }
+
+    .login-card {
+        padding: 28px 20px;
+    }
+
+    .login-heading h1 {
+        font-size: 24px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="login-header">
+
+    <div class="brand">
+
+        <div class="brand-icon">CF</div>
+
+        <div>
+
+            <div class="brand-name">
+                Community Farmers
+            </div>
+
+            <div class="brand-subtitle">
+                AGRICULTURAL KNOWLEDGE & COLLABORATION
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     ADMIN LOGIN
+===================================================== -->
+
+<main class="login-main">
+
+    <div class="login-container">
+
+        <div class="login-heading">
+
+            <h1>Administrator Login</h1>
+
+            <p>
+                Sign in to manage farmer applications,
+                approvals and community activities.
+            </p>
+
+        </div>
+
+
+        <section class="login-card">
+
+            <div class="admin-icon">
+                ♙
+            </div>
+
+            <div
+                id="loginMessage"
+                class="login-message"
+                role="alert"
+                aria-live="polite"
+            ></div>
+
+
+            <form id="adminLoginForm">
+
+                <!-- EMAIL -->
+
+                <div class="form-group">
+
+                    <label for="adminEmail">
+                        Administrator Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="adminEmail"
+                        name="email"
+                        placeholder="Enter administrator email"
+                        autocomplete="username"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <label for="adminPassword">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="adminPassword"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            id="togglePassword"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton"
+                >
+                    Sign In to Dashboard
+                </button>
+
+            </form>
+
+
+            <div class="security-note">
+
+                Protected administrator access.
+
+                <br>
+
+                Only authorised Community Farmers
+                administrators can enter this dashboard.
+
+            </div>
+
+        </section>
+
+
+        <a href="index.html" class="back-link">
+            ← Back to Community Farmers
+        </a>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="login-footer">
+
+    © 2026 Community Farmers.
+    All rights reserved.
+
+</footer>
+
+
+<!-- =====================================================
+     ADMIN LOGIN JAVASCRIPT
+===================================================== -->
+
+<script>
+
+const loginForm =
+    document.getElementById("adminLoginForm");
+
+const loginButton =
+    document.getElementById("loginButton");
+
+const loginMessage =
+    document.getElementById("loginMessage");
+
+
+/* =====================================================
+   SHOW / HIDE PASSWORD
+===================================================== */
+
+document.getElementById("togglePassword")
+.addEventListener("click", function() {
+
+    const passwordInput =
+        document.getElementById("adminPassword");
+
+    const showing =
+        passwordInput.type === "text";
+
+    passwordInput.type =
+        showing ? "password" : "text";
+
+    this.textContent =
+        showing ? "Show" : "Hide";
+
+});
+
+
+/* =====================================================
+   DISPLAY MESSAGE
+===================================================== */
+
+function showMessage(message, type) {
+
+    loginMessage.textContent = message;
+
+    loginMessage.className =
+        "login-message " + type;
+
+}
+
+
+/* =====================================================
+   ADMIN LOGIN
+   POST /api/admin/login
+===================================================== */
+
+loginForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    const email =
+        document.getElementById("adminEmail").value.trim();
+
+    const password =
+        document.getElementById("adminPassword").value;
+
+    loginButton.disabled = true;
+
+    loginButton.textContent = "Authenticating...";
+
+    loginMessage.className = "login-message";
+
+    try {
+
+        const response = await fetch("/api/admin/login", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                email,
+                password
+            })
+
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message || "Invalid administrator credentials."
+            );
+
+        }
+
+        if (!data.token || !data.admin) {
+            throw new Error("Invalid server response.");
+        }
+
+        /*
+           Store the token in sessionStorage for this
+           demonstration. For production, use an
+           HTTP-only secure cookie issued by the server.
+        */
+
+        sessionStorage.setItem(
+            "adminToken",
+            data.token
+        );
+
+        sessionStorage.setItem(
+            "adminName",
+            data.admin.name
+        );
+
+        showMessage(
+            "Login successful. Opening administrator dashboard...",
+            "success"
+        );
+
+        setTimeout(() => {
+
+            window.location.href = "/admin-dashboard.html";
+
+        }, 700);
+
+    } catch (error) {
+
+        showMessage(error.message, "error");
+
+        loginButton.disabled = false;
+
+        loginButton.textContent =
+            "Sign In to Dashboard";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+

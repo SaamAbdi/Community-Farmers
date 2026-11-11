@@ -1,0 +1,728 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Create Farmer Account | GADEH</title>
+
+<style>
+
+/* =========================================
+   GLOBAL STYLING
+========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    padding: 25px 16px 30px;
+    background: #F7F5F2;
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================
+   GADEH HEADER
+========================================= */
+
+.account-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px 15px 25px;
+}
+
+.account-logo {
+    width: 105px;
+    height: 105px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.account-header h1 {
+    color: #800020;
+    font-size: 25px;
+    font-weight: 750;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+}
+
+
+/* =========================================
+   3D LAVENDER ACCOUNT CARD
+========================================= */
+
+.account-container {
+    width: 100%;
+    max-width: 440px;
+    padding: 38px 30px;
+
+    background: linear-gradient(
+        145deg,
+        #F5EFF8,
+        #EAE1F0
+    );
+
+    border: 1px solid rgba(128, 0, 32, 0.08);
+    border-radius: 16px;
+
+    box-shadow:
+        0 2px 5px rgba(70, 45, 75, 0.04),
+        0 10px 20px rgba(70, 45, 75, 0.09),
+        0 20px 40px rgba(70, 45, 75, 0.12),
+        inset 0 1px 2px rgba(255,255,255,0.9);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+
+    .account-container:hover {
+        transform: translateY(-5px);
+
+        box-shadow:
+            0 5px 10px rgba(70,45,75,0.05),
+            0 15px 30px rgba(70,45,75,0.12),
+            0 28px 50px rgba(70,45,75,0.16),
+            inset 0 1px 2px rgba(255,255,255,0.9);
+    }
+
+}
+
+
+/* =========================================
+   CARD HEADING
+========================================= */
+
+.account-container h2 {
+    text-align: center;
+    color: #781F35;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #777777;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+
+/* =========================================
+   FORM LABELS
+========================================= */
+
+.account-container form > label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #454545;
+}
+
+
+/* =========================================
+   INPUT FIELDS
+========================================= */
+
+.account-container input {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #D8D0DC;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    font-size: 15px;
+    color: #454545;
+    background: rgba(255,255,255,0.85);
+    transition: border-color 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.account-container input:focus {
+    outline: none;
+    border-color: #781F35;
+    box-shadow: 0 0 0 3px rgba(120,31,53,0.08);
+}
+
+.account-container input::placeholder {
+    color: #999999;
+}
+
+
+/* =========================================
+   CREATE ACCOUNT BUTTON
+========================================= */
+
+#submitButton {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    background: #781F35;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+
+    transition:
+        background 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    box-shadow: 0 4px 10px rgba(120,31,53,0.18);
+}
+
+#submitButton:hover {
+    background: #5E1729;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(120,31,53,0.23);
+}
+
+#submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+/* =========================================
+   FEEDBACK MESSAGE
+========================================= */
+
+.message {
+    margin-top: 16px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.success {
+    color: #16753B;
+}
+
+.error {
+    color: #B42318;
+}
+
+
+/* =========================================
+   LOGIN LINK
+========================================= */
+
+.login-link {
+    text-align: center;
+    margin-top: 23px;
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.6;
+}
+
+.login-link a {
+    color: #781F35;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   GADEH FOOTER
+========================================= */
+
+.account-footer {
+    width: 100%;
+    padding: 25px 15px 12px;
+    margin-top: 5px;
+    background: #F7F5F2;
+    text-align: center;
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 18px;
+}
+
+.footer-socials a {
+    color: #800020;
+    font-size: 19px;
+    text-decoration: none;
+    transition: color 0.25s ease,
+                transform 0.25s ease;
+}
+
+.footer-socials a:hover {
+    color: #5E1729;
+    transform: translateY(-3px);
+}
+
+.footer-name {
+    color: #454545;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.footer-copy {
+    color: #666666;
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.footer-tagline {
+    color: #777777;
+    font-size: 12px;
+    letter-spacing: 0.2px;
+}
+
+
+/* =========================================
+   TABLET RESPONSIVENESS
+========================================= */
+
+@media (max-width: 768px) {
+
+    .account-container {
+        max-width: 440px;
+        padding: 32px 25px;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 18px 14px 25px;
+        justify-content: flex-start;
+    }
+
+    .account-header {
+        padding: 12px 10px 22px;
+    }
+
+    .account-logo {
+        width: 85px;
+        height: 85px;
+    }
+
+    .account-header h1 {
+        font-size: 21px;
+    }
+
+    .account-container {
+        width: 100%;
+        max-width: 100%;
+        padding: 28px 20px;
+        border-radius: 13px;
+
+        box-shadow:
+            0 4px 10px rgba(70,45,75,0.07),
+            0 12px 25px rgba(70,45,75,0.11),
+            inset 0 1px 2px rgba(255,255,255,0.9);
+    }
+
+    .account-container h2 {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+        margin-bottom: 23px;
+    }
+
+    .account-container input {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    #submitButton {
+        padding: 13px;
+    }
+
+    .account-footer {
+        padding: 22px 10px 12px;
+        margin-top: 10px;
+    }
+
+    .footer-socials {
+        gap: 25px;
+    }
+
+    .footer-name {
+        font-size: 12px;
+    }
+
+    .footer-tagline {
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================
+   EXTRA SMALL SCREENS
+========================================= */
+
+@media (max-width: 360px) {
+
+    .account-container {
+        padding: 23px 16px;
+    }
+
+    .account-header h1 {
+        font-size: 19px;
+    }
+
+    .footer-name {
+        font-size: 11px;
+    }
+
+}
+
+</style>
+
+<!-- FONT AWESOME SOCIAL ICONS -->
+
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+</head>
+
+<body>
+
+
+<!-- =========================================
+     GADEH ACCOUNT HEADER
+========================================= -->
+
+<header class="account-header">
+
+    <img
+        src="/images/gadeh_logo.png"
+        alt="GADEH Logo"
+        class="account-logo"
+    >
+
+    <h1>Farmers Account Portal</h1>
+
+</header>
+
+
+<!-- =========================================
+     CREATE FARMER ACCOUNT CARD
+========================================= -->
+
+<main class="account-container">
+
+    <h2>Create Your Account</h2>
+
+    <p class="subtitle">
+        GADEH Community Farmers
+        <br>
+        Set up your password to access the community.
+    </p>
+
+
+    <form id="accountForm">
+
+        <label for="farmerId">
+            Your Unique Farmer ID
+        </label>
+
+        <input
+            type="text"
+            id="farmerId"
+            placeholder="Example: CF-000001"
+            autocomplete="username"
+            required
+        >
+
+
+        <label for="phone">
+            Registered Phone Number
+        </label>
+
+        <input
+            type="tel"
+            id="phone"
+            placeholder="Enter your registered phone"
+            autocomplete="tel"
+            required
+        >
+
+
+        <label for="password">
+            Create Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            minlength="10"
+            placeholder="At least 10 characters"
+            autocomplete="new-password"
+            required
+        >
+
+
+        <label for="confirmPassword">
+            Confirm Password
+        </label>
+
+        <input
+            type="password"
+            id="confirmPassword"
+            minlength="10"
+            placeholder="Enter password again"
+            autocomplete="new-password"
+            required
+        >
+
+
+        <button type="submit" id="submitButton">
+            Create My Account
+        </button>
+
+
+        <div id="message" class="message"></div>
+
+    </form>
+
+
+    <div class="login-link">
+
+        Already have an account?
+
+        <a href="/community-login">
+            Login
+        </a>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================
+     GADEH FOOTER
+========================================= -->
+
+<footer class="account-footer">
+
+    <div class="footer-socials">
+
+        <a href="https://www.facebook.com/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a href="https://www.instagram.com/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="https://www.linkedin.com/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+
+        <a href="https://www.youtube.com/"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="YouTube">
+            <i class="fab fa-youtube"></i>
+        </a>
+
+    </div>
+
+    <p class="footer-name">
+        GADEH — Garissa Agro-Digital Empowerment Hub
+    </p>
+
+    <p class="footer-copy">
+        &copy; 2026 GADEH. All rights reserved.
+    </p>
+
+    <p class="footer-tagline">
+        Empowering Farmers Through Digital Innovation.
+    </p>
+
+</footer>
+
+
+<!-- =========================================
+     ACCOUNT ACTIVATION JAVASCRIPT
+========================================= -->
+
+<script>
+
+"use strict";
+
+const accountForm =
+    document.getElementById("accountForm");
+
+const message =
+    document.getElementById("message");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+
+accountForm.addEventListener("submit", async function(event) {
+
+    event.preventDefault();
+
+    message.textContent = "";
+    message.className = "message";
+
+    const farmerId =
+        document.getElementById("farmerId")
+            .value.trim().toUpperCase();
+
+    const phone =
+        document.getElementById("phone")
+            .value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+
+    // PASSWORD VALIDATION
+
+    if (password.length < 10) {
+
+        message.textContent =
+            "Password must contain at least 10 characters.";
+
+        message.classList.add("error");
+
+        return;
+    }
+
+
+    // CONFIRM PASSWORD VALIDATION
+
+    if (password !== confirmPassword) {
+
+        message.textContent =
+            "Passwords do not match.";
+
+        message.classList.add("error");
+
+        return;
+    }
+
+
+    submitButton.disabled = true;
+
+    submitButton.textContent = "Creating Account...";
+
+
+    try {
+
+        const response = await fetch("/api/farmer/activate", {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                farmerId,
+                phone,
+                password,
+                confirmPassword
+            })
+
+        });
+
+
+        const data = await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message || "Unable to create account."
+            );
+
+        }
+
+
+        message.textContent =
+            "Account created successfully. You can now log in.";
+
+        message.classList.add("success");
+
+
+        accountForm.reset();
+
+
+        setTimeout(() => {
+
+            window.location.replace("/community-login");
+
+        }, 1800);
+
+
+    } catch (error) {
+
+        message.textContent = error.message;
+
+        message.classList.add("error");
+
+
+    } finally {
+
+        submitButton.disabled = false;
+
+        submitButton.textContent = "Create My Account";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+

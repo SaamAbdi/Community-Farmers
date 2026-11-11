@@ -1,0 +1,2379 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | Community Farmers</title>
+
+<style>
+
+/* =========================================================
+   COMMUNITY FARMERS — ADMIN DASHBOARD
+========================================================= */
+
+:root {
+    --ivory: #F7F5F2;
+    --white: #FFFFFF;
+    --burgundy: #874052;
+    --tan: #B08D57;
+    --green: #477B55;
+    --dark-green: #214B35;
+    --grey: #858585;
+    --charcoal: #414141;
+    --border: #E8E1DC;
+    --red: #B23A48;
+    --light-green: #EDF4EF;
+    --light-red: #FAEFF0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--ivory);
+    color: var(--charcoal);
+    min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.admin-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--ivory);
+    border-bottom: 1px solid var(--border);
+    min-height: 75px;
+    padding: 12px 4%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.brand-logo {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    background: var(--burgundy);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.brand-title {
+    color: var(--burgundy);
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.brand-caption {
+    font-size: 9px;
+    color: var(--grey);
+    margin-top: 4px;
+    letter-spacing: 1px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.admin-info {
+    text-align: right;
+}
+
+.admin-info strong {
+    display: block;
+    font-size: 12px;
+}
+
+.admin-info span {
+    font-size: 10px;
+    color: var(--grey);
+}
+
+.logout-btn {
+    border: 1px solid #E8D5DC;
+    color: var(--burgundy);
+    background: #F5EDF0;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* =========================================================
+   PAGE LAYOUT
+========================================================= */
+
+.dashboard-layout {
+    width: 100%;
+    max-width: 1500px;
+    margin: auto;
+    padding: 30px 4%;
+}
+
+.page-heading {
+    margin-bottom: 27px;
+}
+
+.page-heading h1 {
+    font-size: 26px;
+    color: var(--burgundy);
+    margin-bottom: 9px;
+}
+
+.page-heading p {
+    color: var(--grey);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* =========================================================
+   STATISTICS
+========================================================= */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 21px;
+    min-height: 125px;
+}
+
+.stat-label {
+    color: var(--grey);
+    font-size: 11px;
+    margin-bottom: 13px;
+}
+
+.stat-number {
+    color: var(--burgundy);
+    font-size: 29px;
+    font-weight: 800;
+}
+
+.stat-note {
+    font-size: 10px;
+    color: var(--grey);
+    margin-top: 7px;
+}
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.dashboard-navigation {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding-bottom: 13px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+}
+
+.nav-btn {
+    padding: 11px 15px;
+    border: none;
+    background: transparent;
+    color: var(--grey);
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+    color: var(--burgundy);
+    background: #F1E9ED;
+}
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+.dashboard-section {
+    display: none;
+}
+
+.dashboard-section.active {
+    display: block;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 19px;
+}
+
+.section-heading h2 {
+    font-size: 19px;
+    color: var(--burgundy);
+}
+
+.section-description {
+    color: var(--grey);
+    font-size: 11px;
+    margin-top: 6px;
+}
+
+/* =========================================================
+   FILTERS AND SEARCH
+========================================================= */
+
+.section-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.filter-control,
+.search-control {
+    min-height: 38px;
+    padding: 9px 12px;
+    background: white;
+    color: var(--charcoal);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    font-size: 11px;
+    outline: none;
+}
+
+.search-control {
+    min-width: 190px;
+}
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+}
+
+thead {
+    background: #F8F5F3;
+}
+
+th {
+    padding: 15px;
+    color: var(--burgundy);
+    font-size: 10px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+td {
+    padding: 14px 15px;
+    border-top: 1px solid #F0ECE8;
+    font-size: 11px;
+    line-height: 1.5;
+    vertical-align: middle;
+}
+
+tbody tr:hover {
+    background: #FCFAF8;
+}
+
+.empty-state,
+.loading-state {
+    text-align: center;
+    padding: 30px;
+    color: var(--grey);
+    font-size: 12px;
+}
+
+.error-state {
+    text-align: center;
+    padding: 20px;
+    color: var(--red);
+    font-size: 12px;
+}
+
+/* =========================================================
+   STATUS LABELS
+========================================================= */
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.status.pending {
+    background: #F8F1E3;
+    color: #946D2F;
+}
+
+.status.approved,
+.status.active {
+    background: var(--light-green);
+    color: var(--green);
+}
+
+.status.rejected,
+.status.inactive {
+    background: var(--light-red);
+    color: var(--red);
+}
+
+.status.archived {
+    background: #F5EDF0;
+    color: var(--burgundy);
+}
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.action-btn {
+    border: 1px solid transparent;
+    padding: 7px 10px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.action-btn:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+.approve-btn,
+.restore-btn {
+    background: var(--light-green);
+    color: var(--green);
+    border-color: #D5E5D9;
+}
+
+.reject-btn,
+.delete-btn {
+    background: var(--light-red);
+    color: var(--red);
+    border-color: #EED7DA;
+}
+
+.archive-btn,
+.reset-btn {
+    background: #F8F3E9;
+    color: #96733C;
+    border-color: #EDE1C9;
+}
+
+.view-btn {
+    background: #F1E9ED;
+    color: var(--burgundy);
+    border-color: #E8D5DC;
+}
+
+/* =========================================================
+   OVERVIEW CONTENT
+========================================================= */
+
+.overview-content {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.overview-content h3 {
+    font-size: 15px;
+    color: var(--burgundy);
+    margin-bottom: 12px;
+}
+
+.overview-content p {
+    font-size: 12px;
+    color: var(--grey);
+    line-height: 1.8;
+}
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(25, 20, 22, .55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+}
+
+.modal[hidden] {
+    display: none !important;
+}
+
+.modal-content {
+    width: 100%;
+    max-width: 540px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 27px;
+    background: white;
+    border-radius: 9px;
+}
+
+.modal-content h2 {
+    color: var(--burgundy);
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: var(--grey);
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.modal-content label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.modal-content input,
+.modal-content textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    font-size: 12px;
+    margin-bottom: 15px;
+    outline: none;
+}
+
+.modal-content textarea {
+    resize: vertical;
+}
+
+.modal-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.modal-btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.modal-primary {
+    background: var(--burgundy);
+    color: white;
+}
+
+.modal-secondary {
+    background: #F0ECE8;
+    color: var(--charcoal);
+}
+
+.credential-box {
+    background: var(--ivory);
+    border-radius: 5px;
+    padding: 12px;
+    margin-bottom: 10px;
+    color: var(--burgundy);
+    font-size: 14px;
+    font-weight: 800;
+    overflow-wrap: anywhere;
+}
+
+.copy-btn {
+    background: var(--tan);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 11px;
+    font-size: 10px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+/* =========================================================
+   APPLICATION DETAILS
+========================================================= */
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    padding-bottom: 9px;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-item small {
+    display: block;
+    color: var(--grey);
+    font-size: 9px;
+    margin-bottom: 5px;
+}
+
+.detail-item strong {
+    font-size: 11px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.detail-full {
+    grid-column: 1 / -1;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.dashboard-footer {
+    padding: 22px 15px;
+    text-align: center;
+    color: var(--grey);
+    border-top: 1px solid var(--border);
+    font-size: 10px;
+    margin-top: 35px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+@media (max-width: 550px) {
+
+    .admin-header {
+        padding: 12px 4%;
+    }
+
+    .brand-title {
+        font-size: 13px;
+    }
+
+    .admin-info {
+        display: none;
+    }
+
+    .dashboard-layout {
+        padding: 23px 4%;
+    }
+
+    .page-heading h1 {
+        font-size: 22px;
+    }
+
+    .stats-grid {
+        gap: 9px;
+    }
+
+    .stat-card {
+        padding: 15px;
+        min-height: 110px;
+    }
+
+    .stat-number {
+        font-size: 24px;
+    }
+
+    .dashboard-navigation {
+        gap: 4px;
+    }
+
+    .nav-btn {
+        padding: 9px 10px;
+        font-size: 10px;
+    }
+
+    .search-control {
+        width: 100%;
+    }
+
+    .section-tools {
+        width: 100%;
+    }
+
+    .filter-control {
+        flex: 1;
+    }
+
+    .modal-content {
+        padding: 21px;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="admin-header">
+
+    <div class="brand">
+
+        <div class="brand-logo">CF</div>
+
+        <div>
+
+            <div class="brand-title">
+                Community Farmers
+            </div>
+
+            <div class="brand-caption">
+                ADMINISTRATION PORTAL
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-actions">
+
+        <div class="admin-info">
+
+            <strong id="adminName">Administrator</strong>
+
+            <span>Platform Management</span>
+
+        </div>
+
+        <button class="logout-btn" id="logoutButton">
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN DASHBOARD
+========================================================= -->
+
+<main class="dashboard-layout">
+
+
+    <section class="page-heading">
+
+        <h1>Administrator Dashboard</h1>
+
+        <p>
+            Manage farmer applications, registered members,
+            agricultural community discussions and platform accounts.
+        </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         STATISTICS
+    ====================================================== -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Pending Applications
+            </div>
+
+            <div class="stat-number" id="pendingCount">—</div>
+
+            <div class="stat-note">
+                Awaiting review
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Approved Farmers
+            </div>
+
+            <div class="stat-number" id="approvedCount">—</div>
+
+            <div class="stat-note">
+                Approved applications
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Rejected Applications
+            </div>
+
+            <div class="stat-number" id="rejectedCount">—</div>
+
+            <div class="stat-note">
+                Applications rejected
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-label">
+                Active Farmers
+            </div>
+
+            <div class="stat-number" id="farmerCount">—</div>
+
+            <div class="stat-note">
+                Registered accounts
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <nav class="dashboard-navigation">
+
+        <button class="nav-btn active" data-section="overview">
+            Overview
+        </button>
+
+        <button class="nav-btn" data-section="applications">
+            Applications
+        </button>
+
+        <button class="nav-btn" data-section="farmers">
+            Farmers
+        </button>
+
+        <button class="nav-btn" data-section="posts">
+            Community Posts
+        </button>
+
+        <button class="nav-btn" data-section="account">
+            Account
+        </button>
+
+    </nav>
+
+
+    <!-- =====================================================
+         OVERVIEW
+    ====================================================== -->
+
+    <section class="dashboard-section active" id="overview">
+
+        <div class="section-heading">
+
+            <h2>Platform Overview</h2>
+
+        </div>
+
+        <div class="overview-content">
+
+            <h3>Welcome to Community Farmers Administration</h3>
+
+            <p>
+                This dashboard provides administrative access to
+                farmer registration, membership approval, farmer
+                accounts and community discussions.
+            </p>
+
+            <br>
+
+            <p>
+                Use the Applications section to review new farmer
+                registrations. Approved farmers receive their
+                Farmer ID and temporary login credentials.
+            </p>
+
+            <br>
+
+            <p>
+                Use Community Posts to moderate agricultural
+                discussions, archive inappropriate content,
+                restore posts or permanently delete content
+                that violates community guidelines.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         APPLICATIONS
+    ====================================================== -->
+
+    <section class="dashboard-section" id="applications">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Farmer Applications</h2>
+                <p class="section-description">
+                    Review and manage farmer registration requests.
+                </p>
+            </div>
+
+            <div class="section-tools">
+
+                <input
+                    type="search"
+                    id="applicationSearch"
+                    class="search-control"
+                    placeholder="Search applications..."
+                >
+
+                <select id="applicationFilter" class="filter-control">
+
+                    <option value="pending">Pending</option>
+
+                    <option value="approved">Approved</option>
+
+                    <option value="rejected">Rejected</option>
+
+                    <option value="all">All Applications</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Application Number</th>
+                        <th>Farmer Name</th>
+                        <th>Phone</th>
+                        <th>County</th>
+                        <th>Submitted</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="applicationsTable">
+
+                    <tr>
+                        <td colspan="7" class="loading-state">
+                            Loading applications...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FARMERS
+    ====================================================== -->
+
+    <section class="dashboard-section" id="farmers">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Registered Farmers</h2>
+                <p class="section-description">
+                    View farmer membership and account information.
+                </p>
+            </div>
+
+            <input
+                type="search"
+                id="farmerSearch"
+                class="search-control"
+                placeholder="Search farmers..."
+            >
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Farmer ID</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>County</th>
+                        <th>Account Status</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="farmersTable">
+
+                    <tr>
+                        <td colspan="7" class="loading-state">
+                            Loading farmer records...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         COMMUNITY POSTS
+    ====================================================== -->
+
+    <section class="dashboard-section" id="posts">
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Community Management</h2>
+                <p class="section-description">
+                    Moderate agricultural community posts.
+                </p>
+            </div>
+
+            <div class="section-tools">
+
+                <input
+                    type="search"
+                    id="postSearch"
+                    class="search-control"
+                    placeholder="Search posts..."
+                >
+
+                <select id="postFilter" class="filter-control">
+
+                    <option value="all">All Posts</option>
+
+                    <option value="active">Active Posts</option>
+
+                    <option value="archived">Archived Posts</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Farmer</th>
+                        <th>Farmer ID</th>
+                        <th>Category</th>
+                        <th>Post</th>
+                        <th>Likes</th>
+                        <th>Comments</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="postsTable">
+
+                    <tr>
+                        <td colspan="8" class="loading-state">
+                            Loading community posts...
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         ADMIN ACCOUNT
+    ====================================================== -->
+
+    <section class="dashboard-section" id="account">
+
+        <div class="section-heading">
+
+            <h2>Administrator Account</h2>
+
+        </div>
+
+        <div class="overview-content">
+
+            <h3>Account Information</h3>
+
+            <div class="details-grid">
+
+                <div class="detail-item">
+
+                    <small>Administrator Name</small>
+
+                    <strong id="accountAdminName">Administrator</strong>
+
+                </div>
+
+                <div class="detail-item">
+
+                    <small>Account Type</small>
+
+                    <strong id="accountAdminRole">Administrator</strong>
+
+                </div>
+
+            </div>
+
+            <p>
+                Your administrator account controls access to
+                farmer applications, registered farmer records
+                and community content.
+            </p>
+
+            <br>
+
+            <button class="action-btn reject-btn" id="accountLogout">
+                Sign Out
+            </button>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================================================
+     APPLICATION DETAILS MODAL
+========================================================= -->
+
+<div class="modal" id="applicationModal" hidden>
+
+    <div class="modal-content">
+
+        <h2>Farmer Application Details</h2>
+
+        <div id="applicationDetails" class="details-grid"></div>
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-btn modal-secondary"
+                data-close="applicationModal"
+            >
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     APPROVAL CREDENTIAL MODAL
+========================================================= -->
+
+<div class="modal" id="credentialsModal" hidden>
+
+    <div class="modal-content">
+
+        <h2>Farmer Approved Successfully</h2>
+
+        <p>
+            The farmer's account has been created.
+            Deliver these temporary credentials securely.
+        </p>
+
+        <label>Farmer ID</label>
+
+        <div class="credential-box" id="generatedFarmerID"></div>
+
+        <button class="copy-btn" data-copy="generatedFarmerID">
+            Copy Farmer ID
+        </button>
+
+        <label>Temporary Password</label>
+
+        <div class="credential-box" id="generatedPassword"></div>
+
+        <button class="copy-btn" data-copy="generatedPassword">
+            Copy Temporary Password
+        </button>
+
+        <p>
+            The farmer must change the temporary password
+            when signing in for the first time.
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-btn modal-primary"
+                id="closeCredentials"
+            >
+                Close
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     REJECTION MODAL
+========================================================= -->
+
+<div class="modal" id="rejectModal" hidden>
+
+    <div class="modal-content">
+
+        <h2>Reject Farmer Application</h2>
+
+        <p>
+            Enter administrator remarks explaining the
+            decision, if applicable.
+        </p>
+
+        <label for="rejectionRemarks">
+            Administrator Remarks
+        </label>
+
+        <textarea
+            id="rejectionRemarks"
+            rows="4"
+            placeholder="Enter remarks..."
+        ></textarea>
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-btn modal-secondary"
+                data-close="rejectModal"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="modal-btn modal-primary"
+                id="confirmReject"
+            >
+                Confirm Rejection
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     PASSWORD RESET MODAL
+========================================================= -->
+
+<div class="modal" id="resetModal" hidden>
+
+    <div class="modal-content">
+
+        <h2>Reset Farmer Password</h2>
+
+        <p>
+            Generate a temporary password for this farmer.
+            The farmer will be required to change it at
+            the next login.
+        </p>
+
+        <label>Farmer ID</label>
+
+        <div class="credential-box" id="resetFarmerID"></div>
+
+        <div class="modal-actions">
+
+            <button
+                class="modal-btn modal-secondary"
+                data-close="resetModal"
+            >
+                Cancel
+            </button>
+
+            <button
+                class="modal-btn modal-primary"
+                id="confirmReset"
+            >
+                Reset Password
+            </button>
+
+        </div>
+
+        <div id="resetResult" hidden>
+
+            <label>Temporary Password</label>
+
+            <div class="credential-box" id="resetPasswordValue"></div>
+
+            <button class="copy-btn" data-copy="resetPasswordValue">
+                Copy Temporary Password
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   AUTHENTICATION
+========================================================= */
+
+const adminToken = sessionStorage.getItem("adminToken");
+
+if (!adminToken) {
+    window.location.replace("admin-login.html");
+}
+
+const adminName =
+    sessionStorage.getItem("adminName") || "Administrator";
+
+document.getElementById("adminName").textContent = adminName;
+
+document.getElementById("accountAdminName").textContent = adminName;
+
+
+/* =========================================================
+   API REQUEST HELPER
+========================================================= */
+
+async function apiRequest(endpoint, options = {}) {
+
+    const response = await fetch("/api" + endpoint, {
+
+        ...options,
+
+        headers: {
+
+            "Content-Type": "application/json",
+
+            "Authorization": "Bearer " + adminToken,
+
+            ...options.headers
+
+        }
+
+    });
+
+    const data = await response.json().catch(() => ({}));
+
+    if (response.status === 401 || response.status === 403) {
+
+        logout();
+
+        throw new Error("Administrator session expired.");
+
+    }
+
+    if (!response.ok) {
+
+        throw new Error(data.message || "Request failed.");
+
+    }
+
+    return data;
+
+}
+
+
+/* =========================================================
+   SAFE TEXT
+========================================================= */
+
+function safe(value) {
+
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+
+    })[char]);
+
+}
+
+function formatDate(value) {
+
+    if (!value) return "—";
+
+    const date = new Date(value);
+
+    return Number.isNaN(date.getTime())
+        ? "—"
+        : date.toLocaleDateString();
+
+}
+
+function formatDateTime(value) {
+
+    if (!value) return "Never";
+
+    const date = new Date(value);
+
+    return Number.isNaN(date.getTime())
+        ? "—"
+        : date.toLocaleString();
+
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+document.querySelectorAll(".nav-btn").forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        document.querySelectorAll(".nav-btn")
+            .forEach(item => item.classList.remove("active"));
+
+        document.querySelectorAll(".dashboard-section")
+            .forEach(section => section.classList.remove("active"));
+
+        button.classList.add("active");
+
+        const section = document.getElementById(
+            button.dataset.section
+        );
+
+        section.classList.add("active");
+
+        if (button.dataset.section === "applications") {
+            loadApplications();
+        }
+
+        if (button.dataset.section === "farmers") {
+            loadFarmers();
+        }
+
+        if (button.dataset.section === "posts") {
+            loadPosts();
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   MODAL HELPERS
+========================================================= */
+
+function openModal(id) {
+
+    document.getElementById(id).hidden = false;
+
+}
+
+function closeModal(id) {
+
+    document.getElementById(id).hidden = true;
+
+}
+
+document.querySelectorAll("[data-close]").forEach(button => {
+
+    button.addEventListener("click", () => {
+        closeModal(button.dataset.close);
+    });
+
+});
+
+
+/* =========================================================
+   DASHBOARD STATISTICS
+========================================================= */
+
+async function loadDashboard() {
+
+    try {
+
+        const data = await apiRequest("/admin/dashboard");
+
+        document.getElementById("pendingCount").textContent =
+            data.applications.pending ?? 0;
+
+        document.getElementById("approvedCount").textContent =
+            data.applications.approved ?? 0;
+
+        document.getElementById("rejectedCount").textContent =
+            data.applications.rejected ?? 0;
+
+        document.getElementById("farmerCount").textContent =
+            data.totalFarmers ?? 0;
+
+    } catch (error) {
+
+        console.error("Dashboard error:", error);
+
+    }
+
+}
+
+
+/* =========================================================
+   APPLICATIONS
+========================================================= */
+
+let applicationsData = [];
+
+async function loadApplications() {
+
+    const table = document.getElementById("applicationsTable");
+
+    table.innerHTML = `
+        <tr>
+            <td colspan="7" class="loading-state">
+                Loading applications...
+            </td>
+        </tr>
+    `;
+
+    const status =
+        document.getElementById("applicationFilter").value;
+
+    try {
+
+        const data = await apiRequest(
+            "/admin/applications?status=" + encodeURIComponent(status)
+        );
+
+        applicationsData = data.applications || [];
+
+        renderApplications();
+
+    } catch (error) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="error-state">
+                    ${safe(error.message)}
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+function renderApplications() {
+
+    const table = document.getElementById("applicationsTable");
+
+    const search = document.getElementById("applicationSearch")
+        .value.toLowerCase().trim();
+
+    const filtered = applicationsData.filter(application => {
+
+        const searchable = [
+
+            application.application_number,
+            application.full_name,
+            application.phone,
+            application.county
+
+        ].join(" ").toLowerCase();
+
+        return searchable.includes(search);
+
+    });
+
+    if (!filtered.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty-state">
+                    No matching applications found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    table.innerHTML = filtered.map(application => `
+
+        <tr>
+
+            <td>${safe(application.application_number)}</td>
+
+            <td>${safe(application.full_name)}</td>
+
+            <td>${safe(application.phone)}</td>
+
+            <td>${safe(application.county || "—")}</td>
+
+            <td>${safe(formatDate(application.submitted_at))}</td>
+
+            <td>
+                <span class="status ${safe(application.application_status)}">
+                    ${safe(application.application_status)}
+                </span>
+            </td>
+
+            <td>
+
+                <div class="actions">
+
+                    <button
+                        class="action-btn view-btn"
+                        data-application-action="view"
+                        data-id="${safe(application.id)}"
+                    >
+                        View
+                    </button>
+
+                    ${
+                        application.application_status === "pending"
+                        ? `
+
+                            <button
+                                class="action-btn approve-btn"
+                                data-application-action="approve"
+                                data-id="${safe(application.id)}"
+                            >
+                                Approve
+                            </button>
+
+                            <button
+                                class="action-btn reject-btn"
+                                data-application-action="reject"
+                                data-id="${safe(application.id)}"
+                            >
+                                Reject
+                            </button>
+
+                        `
+                        : ""
+                    }
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `).join("");
+
+}
+
+
+document.getElementById("applicationFilter")
+.addEventListener("change", loadApplications);
+
+document.getElementById("applicationSearch")
+.addEventListener("input", renderApplications);
+
+
+/* =========================================================
+   VIEW APPLICATION DETAILS
+========================================================= */
+
+function showApplicationDetails(application) {
+
+    const fields = [
+
+        ["Application Number", application.application_number],
+        ["Full Name", application.full_name],
+        ["Phone", application.phone],
+        ["Email", application.email],
+        ["Gender", application.gender],
+        ["Age Group", application.age_group],
+        ["County", application.county],
+        ["Sub-county", application.sub_county],
+        ["Ward", application.ward],
+        ["Village", application.village],
+        ["Farmer Type", application.farmer_type],
+        ["Farm Size", application.farm_size],
+        ["Farming Activity", application.farming_activity],
+        ["Water Source", application.water_source],
+        ["Crops", application.crops],
+        ["Interests", Array.isArray(application.interests)
+            ? application.interests.join(", ")
+            : application.interests],
+        ["Challenges", application.challenges],
+        ["Expectations", application.expectations],
+        ["Administrator Remarks", application.admin_remarks]
+
+    ];
+
+    document.getElementById("applicationDetails").innerHTML =
+        fields.map(([label, value]) => `
+
+            <div class="detail-item">
+
+                <small>${safe(label)}</small>
+
+                <strong>${safe(value || "—")}</strong>
+
+            </div>
+
+        `).join("");
+
+    openModal("applicationModal");
+
+}
+
+
+
+/* =========================================================
+   APPLICATION ACTIONS
+========================================================= */
+
+let rejectionId = null;
+
+document.addEventListener("click", async event => {
+
+    const button = event.target.closest(
+        "[data-application-action]"
+    );
+
+    if (!button) return;
+
+    const action = button.dataset.applicationAction;
+    const id = button.dataset.id;
+
+    const application = applicationsData.find(
+        item => String(item.id) === String(id)
+    );
+
+    // VIEW APPLICATION
+    if (action === "view") {
+
+        if (application) {
+            showApplicationDetails(application);
+        }
+
+        return;
+    }
+
+    // APPROVE APPLICATION
+    if (action === "approve") {
+
+        if (!confirm("Approve this farmer application?")) return;
+
+        button.disabled = true;
+
+        try {
+
+            const data = await apiRequest(
+                "/admin/applications/" +
+                encodeURIComponent(id) +
+                "/approve",
+                { method: "POST" }
+            );
+
+            const farmerId =
+                data.farmerId || data.farmer_id;
+
+            alert(
+                "Farmer application approved successfully!" +
+                (farmerId
+                    ? "\nFarmer ID: " + farmerId
+                    : "")
+            );
+
+            await loadApplications();
+            await loadDashboard();
+
+        } catch (error) {
+
+            alert(error.message);
+
+            button.disabled = false;
+
+        }
+
+        return;
+    }
+
+    // REJECT APPLICATION
+    if (action === "reject") {
+
+        rejectionId = id;
+
+        document.getElementById(
+            "rejectionRemarks"
+        ).value = "";
+
+        openModal("rejectModal");
+
+    }
+
+});
+
+
+/* =========================================================
+   CONFIRM REJECTION
+========================================================= */
+
+document.getElementById("confirmReject")
+.addEventListener("click", async () => {
+
+    if (!rejectionId) return;
+
+    const button = document.getElementById("confirmReject");
+
+    button.disabled = true;
+
+    const remarks = document.getElementById(
+        "rejectionRemarks"
+    ).value.trim();
+
+    try {
+
+        await apiRequest(
+            "/admin/applications/" +
+            encodeURIComponent(rejectionId) +
+            "/reject",
+            {
+                method: "POST",
+                body: JSON.stringify({ remarks })
+            }
+        );
+
+        closeModal("rejectModal");
+
+        rejectionId = null;
+
+        await loadApplications();
+        await loadDashboard();
+
+    } catch (error) {
+
+        alert(error.message);
+
+    } finally {
+
+        button.disabled = false;
+
+    }
+
+});
+
+
+
+/* =========================================================
+   REGISTERED FARMERS
+========================================================= */
+
+let farmersData = [];
+
+async function loadFarmers() {
+
+    const table = document.getElementById("farmersTable");
+
+    table.innerHTML = `
+        <tr>
+            <td colspan="7" class="loading-state">
+                Loading farmers...
+            </td>
+        </tr>
+    `;
+
+    try {
+
+        const data = await apiRequest("/admin/farmers");
+
+        farmersData = data.farmers || [];
+
+        renderFarmers();
+
+    } catch (error) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="error-state">
+                    ${safe(error.message)}
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+function renderFarmers() {
+
+    const table = document.getElementById("farmersTable");
+
+    const search = document.getElementById("farmerSearch")
+        .value.toLowerCase().trim();
+
+    const filtered = farmersData.filter(farmer => {
+
+        return [
+
+            farmer.farmer_id,
+            farmer.full_name,
+            farmer.email,
+            farmer.phone,
+            farmer.county
+
+        ].join(" ").toLowerCase().includes(search);
+
+    });
+
+    if (!filtered.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="7" class="empty-state">
+                    No matching farmers found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    table.innerHTML = filtered.map(farmer => `
+
+        <tr>
+
+            <td>${safe(farmer.farmer_id)}</td>
+
+            <td>${safe(farmer.full_name)}</td>
+
+            <td>${safe(farmer.email || "—")}</td>
+
+            <td>${safe(farmer.phone || "—")}</td>
+
+            <td>${safe(farmer.county || "—")}</td>
+
+            <td>
+                <span class="status ${farmer.is_active ? "active" : "inactive"}">
+                    ${farmer.is_active ? "Active" : "Inactive"}
+                </span>
+            </td>
+
+            <td>
+
+                <button
+                    class="action-btn reset-btn"
+                    data-reset-farmer="${safe(farmer.id)}"
+                    data-farmer-id="${safe(farmer.farmer_id)}"
+                >
+                    Reset Password
+                </button>
+
+            </td>
+
+        </tr>
+
+    `).join("");
+
+}
+
+
+document.getElementById("farmerSearch")
+.addEventListener("input", renderFarmers);
+
+
+/* =========================================================
+   PASSWORD RESET
+========================================================= */
+
+let resetCredentialId = null;
+
+document.addEventListener("click", event => {
+
+    const button = event.target.closest("[data-reset-farmer]");
+
+    if (!button) return;
+
+    resetCredentialId = button.dataset.resetFarmer;
+
+    document.getElementById("resetFarmerID").textContent =
+        button.dataset.farmerId;
+
+    document.getElementById("resetResult").hidden = true;
+
+    document.getElementById("resetPasswordValue").textContent = "";
+
+    openModal("resetModal");
+
+});
+
+
+document.getElementById("confirmReset")
+.addEventListener("click", async () => {
+
+    if (!resetCredentialId) return;
+
+    const button = document.getElementById("confirmReset");
+
+    button.disabled = true;
+
+    button.textContent = "Resetting...";
+
+    try {
+
+        const data = await apiRequest(
+            "/admin/farmers/" + encodeURIComponent(resetCredentialId) + "/reset-password",
+            {
+                method: "POST"
+            }
+        );
+
+        if (!data.temporaryPassword) {
+            throw new Error("The server did not return a temporary password.");
+        }
+
+        document.getElementById("resetPasswordValue").textContent =
+            data.temporaryPassword;
+
+        document.getElementById("resetResult").hidden = false;
+
+        button.hidden = true;
+
+    } catch (error) {
+
+        alert(error.message);
+
+    } finally {
+
+        button.disabled = false;
+
+        button.textContent = "Reset Password";
+
+    }
+
+});
+
+
+/* =========================================================
+   COMMUNITY POSTS
+========================================================= */
+
+let postsData = [];
+
+async function loadPosts() {
+
+    const table = document.getElementById("postsTable");
+
+    table.innerHTML = `
+        <tr>
+            <td colspan="8" class="loading-state">
+                Loading community posts...
+            </td>
+        </tr>
+    `;
+
+    try {
+
+        const data = await apiRequest("/admin/posts");
+
+        postsData = data.posts || [];
+
+        renderPosts();
+
+    } catch (error) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="8" class="error-state">
+                    ${safe(error.message)}
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+function renderPosts() {
+
+    const table = document.getElementById("postsTable");
+
+    const filter = document.getElementById("postFilter").value;
+
+    const search = document.getElementById("postSearch")
+        .value.toLowerCase().trim();
+
+    const filtered = postsData.filter(post => {
+
+        const matchesStatus =
+            filter === "all" ||
+            (filter === "active" && !post.is_archived) ||
+            (filter === "archived" && post.is_archived);
+
+        const searchable = [
+
+            post.full_name,
+            post.farmer_id,
+            post.category,
+            post.content
+
+        ].join(" ").toLowerCase();
+
+        return matchesStatus && searchable.includes(search);
+
+    });
+
+    if (!filtered.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="8" class="empty-state">
+                    No matching community posts found.
+                </td>
+            </tr>
+        `;
+
+        return;
+
+    }
+
+    table.innerHTML = filtered.map(post => `
+
+        <tr>
+
+            <td>${safe(post.full_name)}</td>
+
+            <td>${safe(post.farmer_id)}</td>
+
+            <td>${safe(post.category)}</td>
+
+            <td>
+                ${safe(
+                    post.content.length > 75
+                    ? post.content.slice(0, 75) + "..."
+                    : post.content
+                )}
+            </td>
+
+            <td>${Number(post.likes_count || 0)}</td>
+
+            <td>${Number(post.comments_count || 0)}</td>
+
+            <td>
+
+                <span class="status ${post.is_archived ? "archived" : "active"}">
+
+                    ${post.is_archived ? "Archived" : "Active"}
+
+                </span>
+
+            </td>
+
+            <td>
+
+                <div class="actions">
+
+                    ${
+                        post.is_archived
+                        ? `
+                            <button
+                                class="action-btn restore-btn"
+                                data-post-action="restore"
+                                data-id="${safe(post.id)}"
+                            >
+                                Restore
+                            </button>
+                        `
+                        : `
+                            <button
+                                class="action-btn archive-btn"
+                                data-post-action="archive"
+                                data-id="${safe(post.id)}"
+                            >
+                                Archive
+                            </button>
+                        `
+                    }
+
+                    <button
+                        class="action-btn delete-btn"
+                        data-post-action="delete"
+                        data-id="${safe(post.id)}"
+                    >
+                        Delete
+                    </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    `).join("");
+
+}
+
+
+document.getElementById("postFilter")
+.addEventListener("change", renderPosts);
+
+document.getElementById("postSearch")
+.addEventListener("input", renderPosts);
+
+
+/* =========================================================
+   POST MANAGEMENT
+========================================================= */
+
+document.addEventListener("click", async event => {
+
+    const button = event.target.closest("[data-post-action]");
+
+    if (!button) return;
+
+    const id = button.dataset.id;
+
+    const action = button.dataset.postAction;
+
+    const messages = {
+
+        archive: "Archive this community post?",
+
+        restore: "Restore this community post?",
+
+        delete: "Permanently delete this community post? This action cannot be undone."
+
+    };
+
+    if (!confirm(messages[action])) return;
+
+    const endpoints = {
+
+        archive: `/admin/posts/${encodeURIComponent(id)}/archive`,
+
+        restore: `/admin/posts/${encodeURIComponent(id)}/restore`,
+
+        delete: `/admin/posts/${encodeURIComponent(id)}`
+
+    };
+
+    const methods = {
+
+        archive: "PATCH",
+
+        restore: "PATCH",
+
+        delete: "DELETE"
+
+    };
+
+    button.disabled = true;
+
+    try {
+
+        await apiRequest(endpoints[action], {
+            method: methods[action]
+        });
+
+        await loadPosts();
+
+        await loadDashboard();
+
+    } catch (error) {
+
+        alert(error.message);
+
+        button.disabled = false;
+
+    }
+
+});
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+function logout() {
+
+    sessionStorage.removeItem("adminToken");
+
+    sessionStorage.removeItem("adminName");
+
+    window.location.replace("admin-login.html");
+
+}
+
+document.getElementById("logoutButton")
+.addEventListener("click", () => {
+
+    if (confirm("Are you sure you want to log out?")) {
+        logout();
+    }
+
+});
+
+document.getElementById("accountLogout")
+.addEventListener("click", () => {
+
+    if (confirm("Are you sure you want to log out?")) {
+        logout();
+    }
+
+});
+
+
+/* =========================================================
+   INITIALISE
+========================================================= */
+
+async function initialiseDashboard() {
+
+    await loadDashboard();
+
+}
+
+initialiseDashboard();
+
+</script>
+
+<footer class="dashboard-footer">
+
+    © 2026 Community Farmers. All rights reserved.
+
+</footer>
+
+</body>
+</html>
+

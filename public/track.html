@@ -1,0 +1,1075 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Track Application | Community Farmers</title>
+
+<style>
+:root {
+    --burgundy: #762d43;
+    --burgundy-dark: #552031;
+    --ivory: #F7F5F2;
+    --white: #ffffff;
+    --grey: #777777;
+    --light-grey: #e8e3e0;
+    --green: #27845b;
+    --red: #bd4141;
+    --orange: #d28b32;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--ivory);
+    color: #333;
+    min-height: 100vh;
+    padding: 35px 15px;
+}
+
+.container {
+    width: 100%;
+    max-width: 680px;
+    margin: auto;
+}
+
+/* HEADER */
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: var(--burgundy);
+    font-size: 27px;
+    margin-bottom: 9px;
+}
+
+.header p {
+    color: var(--grey);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* MAIN CARD */
+
+.card {
+    background: var(--white);
+    border-radius: 13px;
+    padding: 27px;
+    box-shadow: 0 5px 22px rgba(0,0,0,0.055);
+}
+
+.card h2 {
+    color: var(--burgundy);
+    font-size: 19px;
+    margin-bottom: 20px;
+}
+
+/* FORM */
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ded9d6;
+    border-radius: 7px;
+    background: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: 0.25s;
+}
+
+.form-group input:focus {
+    border-color: var(--burgundy);
+    box-shadow: 0 0 0 3px rgba(118,45,67,0.08);
+}
+
+.submit-btn {
+    width: 100%;
+    border: none;
+    padding: 14px;
+    background: var(--burgundy);
+    color: white;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.25s;
+}
+
+.submit-btn:hover {
+    background: var(--burgundy-dark);
+}
+
+.submit-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* MESSAGES */
+
+.message {
+    display: none;
+    padding: 12px;
+    border-radius: 7px;
+    margin-top: 16px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.message.error {
+    display: block;
+    background: #fff0f0;
+    color: var(--red);
+}
+
+.message.success {
+    display: block;
+    background: #edf8f1;
+    color: var(--green);
+}
+
+/* RESULTS */
+
+.results {
+    display: none;
+    margin-top: 25px;
+}
+
+.results-title {
+    color: var(--burgundy);
+    font-size: 19px;
+    margin-bottom: 15px;
+}
+
+.details {
+    background: var(--ivory);
+    border-radius: 9px;
+    padding: 20px;
+}
+
+.detail-row {
+    padding: 13px 0;
+    border-bottom: 1px solid #e5dfdb;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    display: block;
+    color: var(--grey);
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 7px;
+}
+
+.detail-value {
+    font-size: 15px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.farmer-id {
+    color: var(--burgundy);
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
+/* STATUS BADGES */
+
+.status-badge {
+    display: inline-block;
+    padding: 7px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.status-pending {
+    background: #fff2d9;
+    color: #a16b13;
+}
+
+.status-approved {
+    background: #e3f5e9;
+    color: #247b48;
+}
+
+.status-rejected {
+    background: #fde8e8;
+    color: #b63232;
+}
+
+/* WIZARD */
+
+.wizard {
+    margin-top: 32px;
+    padding: 22px 20px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.045);
+}
+
+.wizard h3 {
+    color: var(--burgundy);
+    font-size: 17px;
+    margin-bottom: 25px;
+}
+
+.wizard-step {
+    position: relative;
+    display: flex;
+    gap: 15px;
+    padding-bottom: 27px;
+}
+
+.wizard-step:last-child {
+    padding-bottom: 0;
+}
+
+.step-icon {
+    width: 31px;
+    height: 31px;
+    min-width: 31px;
+    border-radius: 50%;
+    border: 2px solid #d7d0cc;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--grey);
+    font-size: 13px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.wizard-step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 31px;
+    width: 2px;
+    height: calc(100% - 31px);
+    background: #ded8d4;
+}
+
+.wizard-step.completed:not(:last-child)::after {
+    background: var(--green);
+}
+
+.wizard-step.completed .step-icon {
+    background: var(--green);
+    border-color: var(--green);
+    color: white;
+}
+
+.wizard-step.current .step-icon {
+    border-color: var(--orange);
+    color: var(--orange);
+    background: #fff8e9;
+}
+
+.step-content {
+    padding-top: 5px;
+}
+
+.step-title {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.step-description {
+    color: var(--grey);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.step-date {
+    color: var(--green);
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+/* ACTION */
+
+.activation-action {
+    display: none;
+    margin-top: 22px;
+    padding: 17px;
+    background: #f8f1f3;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.activation-action p {
+    color: #555;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 13px;
+}
+
+.activation-btn {
+    display: inline-block;
+    padding: 12px 20px;
+    background: var(--burgundy);
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.activation-btn:hover {
+    background: var(--burgundy-dark);
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 23px;
+    color: var(--burgundy);
+    font-size: 13px;
+    text-decoration: none;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 480px) {
+
+    body {
+        padding: 25px 12px;
+    }
+
+    .card {
+        padding: 20px 16px;
+    }
+
+    .header h1 {
+        font-size: 23px;
+    }
+
+    .wizard {
+        padding: 20px 15px;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <h1>Track Your Application</h1>
+
+        <p>
+            Check your farmer registration progress
+            and account approval status.
+        </p>
+
+    </header>
+
+
+    <!-- TRACKING FORM -->
+
+    <section class="card">
+
+        <h2>Application Verification</h2>
+
+        <form id="trackingForm">
+
+            <div class="form-group">
+
+                <label for="applicationNumber">
+                    Application Number
+                </label>
+
+                <input
+                    type="text"
+                    id="applicationNumber"
+                    placeholder="Example: APP-12345"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="phone">
+                    Registered Phone Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    placeholder="Enter your registered phone number"
+                    required
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+                id="trackButton"
+            >
+                Track Application
+            </button>
+
+        </form>
+
+
+        <div
+            id="trackingMessage"
+            class="message"
+            role="alert"
+        ></div>
+
+
+        <!-- RESULTS -->
+
+        <div class="results" id="results">
+
+            <h2 class="results-title">
+                Application Details
+            </h2>
+
+            <div class="details">
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Full Name
+                    </span>
+
+                    <div
+                        class="detail-value"
+                        id="fullName"
+                    ></div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Application Number
+                    </span>
+
+                    <div
+                        class="detail-value"
+                        id="applicationNumberResult"
+                    ></div>
+
+                </div>
+
+
+                <div
+                    class="detail-row"
+                    id="farmerIdRow"
+                    style="display:none"
+                >
+
+                    <span class="detail-label">
+                        Farmer ID
+                    </span>
+
+                    <div
+                        class="detail-value farmer-id"
+                        id="farmerId"
+                    ></div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Date Submitted
+                    </span>
+
+                    <div
+                        class="detail-value"
+                        id="submittedAt"
+                    ></div>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="detail-label">
+                        Application Status
+                    </span>
+
+                    <div>
+                        <span
+                            class="status-badge"
+                            id="applicationStatus"
+                        ></span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTTOM STATUS WIZARD -->
+
+            <section class="wizard">
+
+                <h3>Application Progress</h3>
+
+                <div id="wizardSteps"></div>
+
+            </section>
+
+
+            <!-- ACTIVATION ACTION -->
+
+            <div
+                class="activation-action"
+                id="activationAction"
+            >
+
+                <p>
+                    Your application has been approved!
+                    Activate your farmer account by creating
+                    your password using your Farmer ID.
+                </p>
+
+                <a
+                    href="/community-farmers-account"
+                    class="activation-btn"
+                >
+                    Activate Farmer Account
+                </a>
+
+            </div>
+
+
+            <!-- LOGIN ACTION -->
+
+            <div
+                class="activation-action"
+                id="loginAction"
+            >
+
+                <p>
+                    Your account is activated.
+                    You can now log in to the Community Farmers platform.
+                </p>
+
+                <a
+                    href="/community-login"
+                    class="activation-btn"
+                >
+                    Farmer Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <a href="/" class="back-link">
+        ← Back to Homepage
+    </a>
+
+</div>
+
+
+<script>
+
+// =====================================================
+// FARMER APPLICATION TRACKING
+// =====================================================
+
+const trackingForm =
+    document.getElementById("trackingForm");
+
+const trackingMessage =
+    document.getElementById("trackingMessage");
+
+const trackButton =
+    document.getElementById("trackButton");
+
+const results =
+    document.getElementById("results");
+
+const wizardSteps =
+    document.getElementById("wizardSteps");
+
+
+// =====================================================
+// DATE FORMATTER
+// =====================================================
+
+function formatDate(dateValue) {
+
+    if (!dateValue) {
+        return "Not available";
+    }
+
+    const date = new Date(dateValue);
+
+    if (isNaN(date.getTime())) {
+        return "Not available";
+    }
+
+    return date.toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+}
+
+
+// =====================================================
+// DISPLAY MESSAGE
+// =====================================================
+
+function showMessage(message, type) {
+
+    trackingMessage.textContent = message;
+
+    trackingMessage.className =
+        "message " + type;
+
+}
+
+
+// =====================================================
+// CLEAR PREVIOUS RESULTS
+// =====================================================
+
+function clearResults() {
+
+    results.style.display = "none";
+
+    wizardSteps.replaceChildren();
+
+    document.getElementById(
+        "activationAction"
+    ).style.display = "none";
+
+    document.getElementById(
+        "loginAction"
+    ).style.display = "none";
+
+}
+
+
+// =====================================================
+// CREATE WIZARD STEP
+// =====================================================
+
+function createStep(
+    number,
+    title,
+    description,
+    state,
+    date = null
+) {
+
+    const step = document.createElement("div");
+
+    step.className = "wizard-step " + state;
+
+    const icon = document.createElement("div");
+
+    icon.className = "step-icon";
+
+    icon.textContent =
+        state === "completed" ? "✓" : number;
+
+    const content = document.createElement("div");
+
+    content.className = "step-content";
+
+    const heading = document.createElement("div");
+
+    heading.className = "step-title";
+
+    heading.textContent = title;
+
+    const detail = document.createElement("div");
+
+    detail.className = "step-description";
+
+    detail.textContent = description;
+
+    content.appendChild(heading);
+    content.appendChild(detail);
+
+    if (date) {
+
+        const dateElement =
+            document.createElement("div");
+
+        dateElement.className = "step-date";
+
+        dateElement.textContent = date;
+
+        content.appendChild(dateElement);
+
+    }
+
+    step.appendChild(icon);
+    step.appendChild(content);
+
+    wizardSteps.appendChild(step);
+
+}
+
+
+// =====================================================
+// RENDER APPLICATION WIZARD
+// =====================================================
+
+function renderWizard(application) {
+
+    const status =
+        application.status.toLowerCase();
+
+    const approved =
+        status === "approved";
+
+    const rejected =
+        status === "rejected";
+
+    const activated =
+        application.accountActivated === true;
+
+    // STEP 1: APPLICATION SUBMITTED
+
+    createStep(
+        1,
+        "Application Submitted",
+        "Your farmer registration application was successfully received.",
+        "completed",
+        formatDate(application.submittedAt)
+    );
+
+
+    // STEP 2: ADMINISTRATIVE REVIEW
+
+    createStep(
+        2,
+        "Administrative Review",
+        rejected || approved
+            ? "Your application has been reviewed by the administrator."
+            : "Your application is awaiting administrative review.",
+        approved || rejected
+            ? "completed"
+            : "current",
+        application.reviewedAt
+            ? formatDate(application.reviewedAt)
+            : null
+    );
+
+
+    // REJECTED APPLICATION
+
+    if (rejected) {
+
+        createStep(
+            3,
+            "Application Rejected",
+            "Unfortunately, your application was not approved. Please contact the administration for further information.",
+            "current"
+        );
+
+        return;
+
+    }
+
+
+    // PENDING APPLICATION
+
+    if (!approved) {
+
+        createStep(
+            3,
+            "Application Decision",
+            "Your application is still being reviewed.",
+            "current"
+        );
+
+        return;
+
+    }
+
+
+    // STEP 3: APPROVAL
+
+    createStep(
+        3,
+        "Application Approved",
+        "Congratulations! Your application has been approved and your Farmer ID has been generated.",
+        "completed",
+        application.reviewedAt
+            ? formatDate(application.reviewedAt)
+            : null
+    );
+
+
+    // STEP 4: ACCOUNT ACTIVATION
+
+    createStep(
+        4,
+        "Farmer Account Activation",
+        activated
+            ? "Your password has been created and your farmer account is active."
+            : "Use your Farmer ID to create and confirm your new password.",
+        activated
+            ? "completed"
+            : "current",
+        application.activatedAt
+            ? formatDate(application.activatedAt)
+            : null
+    );
+
+
+    // STEP 5: COMMUNITY ACCESS
+
+    createStep(
+        5,
+        "Community Access",
+        activated
+            ? "Your account is ready. You can now access the Community Farmers platform."
+            : "Log in after activating your farmer account.",
+        activated
+            ? "current"
+            : ""
+    );
+
+
+    // SHOW NEXT ACTION
+
+    if (!activated) {
+
+        document.getElementById(
+            "activationAction"
+        ).style.display = "block";
+
+    } else {
+
+        document.getElementById(
+            "loginAction"
+        ).style.display = "block";
+
+    }
+
+}
+
+
+// =====================================================
+// TRACK APPLICATION FORM
+// =====================================================
+
+trackingForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+        clearResults();
+
+        trackingMessage.className = "message";
+
+        const applicationNumber =
+            document.getElementById(
+                "applicationNumber"
+            ).value.trim();
+
+        const phone =
+            document.getElementById(
+                "phone"
+            ).value.trim();
+
+
+        if (!applicationNumber || !phone) {
+
+            showMessage(
+                "Please enter your application number and registered phone number.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        trackButton.disabled = true;
+
+        trackButton.textContent = "Checking Application...";
+
+
+        try {
+
+            const url =
+                `/api/applications/${encodeURIComponent(applicationNumber)}?phone=${encodeURIComponent(phone)}`;
+
+
+            const response = await fetch(url, {
+
+                method: "GET",
+
+                headers: {
+                    "Accept": "application/json"
+                }
+
+            });
+
+
+            const data = await response.json();
+
+
+            if (!response.ok || !data.success) {
+
+                throw new Error(
+                    data.message || "Unable to find application."
+                );
+
+            }
+
+
+            const application = data.application;
+
+
+            // DISPLAY FARMER INFORMATION
+
+            document.getElementById(
+                "fullName"
+            ).textContent = application.fullName || "Not available";
+
+
+            document.getElementById(
+                "applicationNumberResult"
+            ).textContent =
+                application.applicationNumber || "Not available";
+
+
+            // FARMER ID ONLY AFTER APPROVAL
+
+            const farmerIdRow =
+                document.getElementById("farmerIdRow");
+
+            if (
+                application.status === "approved" &&
+                application.farmerId
+            ) {
+
+                farmerIdRow.style.display = "block";
+
+                document.getElementById(
+                    "farmerId"
+                ).textContent = application.farmerId;
+
+            } else {
+
+                farmerIdRow.style.display = "none";
+
+            }
+
+
+            document.getElementById(
+                "submittedAt"
+            ).textContent = formatDate(
+                application.submittedAt
+            );
+
+
+            // APPLICATION STATUS
+
+            const statusElement =
+                document.getElementById(
+                    "applicationStatus"
+                );
+
+            statusElement.textContent =
+                application.status;
+
+            statusElement.className =
+                "status-badge status-" +
+                application.status.toLowerCase();
+
+
+            // RENDER BOTTOM WIZARD
+
+            renderWizard(application);
+
+
+            // SHOW RESULTS
+
+            results.style.display = "block";
+
+            showMessage(
+                "Application details retrieved successfully.",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            showMessage(
+                error.message,
+                "error"
+            );
+
+            clearResults();
+
+        } finally {
+
+            trackButton.disabled = false;
+
+            trackButton.textContent =
+                "Track Application";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
+
