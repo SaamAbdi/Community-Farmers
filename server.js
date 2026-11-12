@@ -24,8 +24,9 @@ const IMAGE_DIR = path.join(PUBLIC_DIR, "images");
 });
 
 // CORS
+// CORS
 app.use(cors({
-    origin: process.env.CLIENT_ORIGIN || true,
+    origin: "https://garissadigitaltraining.onrender.com",
     credentials: true
 }));
 app.use(cookieParser());
